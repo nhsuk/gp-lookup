@@ -6,7 +6,12 @@ PRACTICES = JSON.parse(File.read("data/general-medical-practices.json"))
 
 SEARCH_INDEX = Blurrily::Map.new
 PRACTICES.each.with_index do |practice, index|
-  SEARCH_INDEX.put(practice.fetch("name"), index)
+  needle = [
+    practice.fetch("name"),
+    practice.fetch("address"),
+  ].join(", ")
+
+  SEARCH_INDEX.put(needle, index)
 end
 
 def all_practices
