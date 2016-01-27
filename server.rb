@@ -19,8 +19,13 @@ def all_practices
 end
 
 def practices_matching(search_term)
-  SEARCH_INDEX.find(search_term).map { |index, _, _|
-    PRACTICES.fetch(index)
+  SEARCH_INDEX.find(search_term).map { |index, matches, weight|
+    PRACTICES.fetch(index).merge(
+      score: {
+        matches: matches,
+        weight: weight,
+      },
+    )
   }
 end
 
@@ -34,5 +39,5 @@ get "/practices" do
   end
 
   content_type :json
-  practices.to_json
+  JSON.pretty_generate(practices)
 end
