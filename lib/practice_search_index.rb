@@ -51,6 +51,7 @@ private
   def find_practices(search_term)
     practices_haystack.find(search_term).map { |index, matches, weight|
       practices.fetch(index).merge(
+        result_type: :practice,
         score: {
           matches: matches,
           weight: weight,
@@ -67,6 +68,7 @@ private
       }
 
       practitioner.merge(
+        result_type: :practitioner,
         practice: practice,
         score: {
           matches: matches,
