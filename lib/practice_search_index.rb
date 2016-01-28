@@ -1,9 +1,10 @@
 require "blurrily/map"
 
 class PracticeSearchIndex
-  def initialize(practices:, practitioners:)
+  def initialize(practices:, practitioners:, max_results: 10)
     @practices = practices
     @practitioners = get_practitioners_linked_to_practices(practitioners)
+    @max_results = max_results
 
     build_haystacks
   end
@@ -11,7 +12,7 @@ class PracticeSearchIndex
   def find(search_term)
     search_haystacks(search_term).sort_by { |result|
       -result.fetch(:score).fetch(:matches)
-    }
+    }.take(max_results)
   end
 
   def search_haystacks(search_term)
@@ -27,6 +28,7 @@ private
     :practices_haystack,
     :practitioners,
     :practitioners_haystack,
+    :max_results,
   )
 
   def get_practitioners_linked_to_practices(practitioners)
@@ -69,7 +71,9 @@ private
   end
 
   def find_practices(search_term)
-    practices_haystack.find(search_term).map { |index, matches, weight|
+    results = practices_haystack.find(search_term, max_results)
+
+    results.map { |index, matches, weight|
       practices.fetch(index).merge(
         result_type: :practice,
         score: {
@@ -81,7 +85,9 @@ private
   end
 
   def find_practitioners(search_term)
-    practitioners_haystack.find(search_term).map { |index, matches, weight|
+    results = practitioners_haystack.find(search_term)
+
+    results.map { |index, matches, weight|
       practitioners.fetch(index).merge(
         result_type: :practitioner,
         score: {
