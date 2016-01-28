@@ -3,7 +3,7 @@ require "blurrily/map"
 class PracticeSearchIndex
   def initialize(practices:, practitioners:)
     @practices = practices
-    @practitioners = practitioners
+    @practitioners = get_practitioners_linked_to_practices(practitioners)
 
     build_haystacks
   end
@@ -28,6 +28,26 @@ private
     :practitioners,
     :practitioners_haystack,
   )
+
+  def get_practitioners_linked_to_practices(practitioners)
+    practice_map = {}
+    practices.each do |practice|
+      practice_map[practice.fetch(:organisation_code)] = practice
+    end
+
+    linked_practitioners = practitioners.map { |practitioner|
+      practice_id = practitioner.fetch(:practice).sub("general-medical-practice:", "")
+      practice = practice_map.fetch(practice_id, nil)
+
+      practitioner.merge(
+        practice: practice
+      )
+    }
+
+    linked_practitioners.select { |practitioner|
+      practitioner.fetch(:practice)
+    }
+  end
 
   def build_haystacks
     @practices_haystack = Blurrily::Map.new
@@ -62,14 +82,8 @@ private
 
   def find_practitioners(search_term)
     practitioners_haystack.find(search_term).map { |index, matches, weight|
-      practitioner = practitioners.fetch(index)
-      practice = practices.find { |practice|
-        practice.fetch(:organisation_code) == practitioner.fetch(:practice)[-6..-1]
-      }
-
-      practitioner.merge(
+      practitioners.fetch(index).merge(
         result_type: :practitioner,
-        practice: practice,
         score: {
           matches: matches,
           weight: weight,
