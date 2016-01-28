@@ -34,8 +34,8 @@ private
 
     practices.each.with_index do |practice, index|
       needle = [
-        practice.fetch("name"),
-        practice.fetch("address"),
+        practice.fetch(:name),
+        practice.fetch(:address),
       ].join(", ")
 
       practices_haystack.put(needle, index)
@@ -44,7 +44,7 @@ private
     @practitioners_haystack = Blurrily::Map.new
 
     practitioners.each.with_index do |practitioner, index|
-      practitioners_haystack.put(practitioner.fetch("name"), index)
+      practitioners_haystack.put(practitioner.fetch(:name), index)
     end
   end
 
@@ -61,7 +61,13 @@ private
 
   def find_practitioners(search_term)
     practitioners_haystack.find(search_term).map { |index, matches, weight|
-      practitioners.fetch(index).merge(
+      practitioner = practitioners.fetch(index)
+      practice = practices.find { |practice|
+        practice.fetch(:organisation_code) == practitioner.fetch(:practice)[-6..-1]
+      }
+
+      practitioner.merge(
+        practice: practice,
         score: {
           matches: matches,
           weight: weight,

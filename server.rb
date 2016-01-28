@@ -3,8 +3,15 @@ require "sinatra"
 
 require "./lib/practice_search_index"
 
-PRACTICES = JSON.parse(File.read("data/general-medical-practices.json"))
-PRACTITIONERS = JSON.parse(File.read("data/general-medical-practitioners.json"))
+PRACTICES = JSON.parse(
+  File.read("data/general-medical-practices.json"),
+  symbolize_names: true,
+)
+
+PRACTITIONERS = JSON.parse(
+  File.read("data/general-medical-practitioners.json"),
+  symbolize_names: true,
+)
 
 SEARCH_INDEX = PracticeSearchIndex.new(
   practices: PRACTICES,
