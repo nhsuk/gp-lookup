@@ -18,6 +18,7 @@ class PracticeSearchIndex
   def search_haystacks(search_term)
     [
       find_practices(search_term),
+      find_addresses(search_term),
       find_practitioners(search_term),
     ].reduce(:+)
   end
@@ -25,8 +26,9 @@ class PracticeSearchIndex
 private
   attr_reader(
     :practices,
-    :practices_haystack,
     :practitioners,
+    :practices_haystack,
+    :addresses_haystack,
     :practitioners_haystack,
     :max_results,
   )
@@ -53,18 +55,16 @@ private
 
   def build_haystacks
     @practices_haystack = Blurrily::Map.new
-
     practices.each.with_index do |practice, index|
-      needle = [
-        practice.fetch(:name),
-        practice.fetch(:address),
-      ].join(", ")
+      practices_haystack.put(practice.fetch(:name), index)
+    end
 
-      practices_haystack.put(needle, index)
+    @addresses_haystack = Blurrily::Map.new
+    practices.each.with_index do |practice, index|
+      addresses_haystack.put(practice.fetch(:address), index)
     end
 
     @practitioners_haystack = Blurrily::Map.new
-
     practitioners.each.with_index do |practitioner, index|
       practitioners_haystack.put(practitioner.fetch(:name), index)
     end
@@ -76,6 +76,20 @@ private
     results.map { |index, matches, weight|
       practices.fetch(index).merge(
         result_type: :practice,
+        score: {
+          matches: matches,
+          weight: weight,
+        },
+      )
+    }
+  end
+
+  def find_addresses(search_term)
+    results = addresses_haystack.find(search_term, max_results)
+
+    results.map { |index, matches, weight|
+      practices.fetch(index).merge(
+        result_type: :address,
         score: {
           matches: matches,
           weight: weight,
