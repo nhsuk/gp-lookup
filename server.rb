@@ -4,9 +4,11 @@ require "sinatra"
 require "./lib/practice_search_index"
 
 PRACTICES = JSON.parse(File.read("data/general-medical-practices.json"))
+PRACTITIONERS = JSON.parse(File.read("data/general-medical-practitioners.json"))
 
 SEARCH_INDEX = PracticeSearchIndex.new(
   practices: PRACTICES,
+  practitioners: PRACTITIONERS,
 )
 
 def all_practices
