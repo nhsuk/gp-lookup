@@ -27,4 +27,18 @@ RSpec.describe(PracticeSearchIndex, "#find") do
       expect(index.find("xyz")).to eq([])
     end
   end
+
+  context "with one match for the practice name" do
+    it "returns one result" do
+      expect(index.find("medical")).to eq(
+        [
+          {
+            code: "H81070",
+            name: "Heathcote Medical Centre",
+            address: "Heathcote, Tadworth, Surrey, KT20 5TH",
+          }
+        ]
+      )
+    end
+  end
 end
