@@ -9,8 +9,8 @@ class PracticeSearchIndex
   end
 
   def find(search_term)
-    results = names_haystack.find(search_term, max_results)
-    practice_results = results.map { |index, matches, _weight|
+    names_results = names_haystack.find(search_term, max_results)
+    names_results = names_results.map { |index, matches, _weight|
       practices.fetch(index).merge(
         score: {
           name: matches,
@@ -18,7 +18,18 @@ class PracticeSearchIndex
       )
     }
 
-    practice_results.map { |practice_result|
+    addresses_results = addresses_haystack.find(search_term, max_results)
+    addresses_results = addresses_results.map { |index, matches, _weight|
+      practices.fetch(index).merge(
+        score: {
+          address: matches,
+        },
+      )
+    }
+
+    combined_results = names_results + addresses_results
+
+    combined_results.map { |practice_result|
       name = practice_result.fetch(:name)
       address = practice_result.fetch(:address)
       score = practice_result.fetch(:score)
@@ -56,7 +67,7 @@ private
 
     @addresses_haystack = Blurrily::Map.new
     practices.each.with_index do |practice, index|
-      names_haystack.put(practice.fetch(:address), index)
+      addresses_haystack.put(practice.fetch(:address), index)
     end
   end
 

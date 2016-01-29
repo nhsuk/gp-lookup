@@ -53,4 +53,30 @@ RSpec.describe(PracticeSearchIndex, "#find") do
       )
     end
   end
+
+  context "with one match for the address" do
+    it "returns one result" do
+      expect(index.find("tadworth")).to eq(
+        [
+          {
+            code: "H81070",
+            name: {
+              value: "Heathcote Medical Centre",
+              matches: [],
+            },
+            address: {
+              value: "Heathcote, Tadworth, Surrey, KT20 5TH",
+              matches: [
+                [11, 18],
+              ],
+            },
+            score: {
+              name: 0,
+              address: 8,
+            }
+          }
+        ]
+      )
+    end
+  end
 end
