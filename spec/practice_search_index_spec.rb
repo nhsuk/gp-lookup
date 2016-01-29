@@ -34,10 +34,19 @@ RSpec.describe(PracticeSearchIndex, "#find") do
         [
           {
             code: "H81070",
-            name: "Heathcote Medical Centre",
-            address: "Heathcote, Tadworth, Surrey, KT20 5TH",
+            name: {
+              value: "Heathcote Medical Centre",
+              matches: [
+                [10, 16],
+              ],
+            },
+            address: {
+              value: "Heathcote, Tadworth, Surrey, KT20 5TH",
+              matches: [],
+            },
             score: {
               name: 7,
+              address: 0,
             }
           }
         ]
