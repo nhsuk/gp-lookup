@@ -12,7 +12,11 @@ class PracticeSearchIndex
     results = practices_haystack.find(search_term, max_results)
 
     results.map { |index, matches, _weight|
-      practices.fetch(index)
+      practices.fetch(index).merge(
+        score: {
+          name: matches,
+        }
+      )
     }
   end
 
