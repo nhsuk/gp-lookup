@@ -29,7 +29,17 @@ class PracticeSearchIndex
 
     combined_results = names_results + addresses_results
 
-    combined_results.map { |practice_result|
+    deduped_results = combined_results.reduce({}) { |results, practice|
+      code = practice.fetch(:code)
+
+      results.merge(code => practice) { |_code, oldval, newval|
+        score = oldval.fetch(:score).merge(newval.fetch(:score))
+
+        oldval.merge(score: score)
+      }
+    }.values
+
+    deduped_results.map { |practice_result|
       name = practice_result.fetch(:name)
       address = practice_result.fetch(:address)
       score = practice_result.fetch(:score)
