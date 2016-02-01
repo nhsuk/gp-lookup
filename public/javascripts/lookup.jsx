@@ -9,105 +9,45 @@ var AuthenticationState = {
 var Application = React.createClass({
   getInitialState: function() {
     return {
-      searchText: "Devonshire",
-      results: [
-          { /* match on name and address */
-            code: "H81070",
-            name: {
-              value: "Devonshire Green Medical Centre",
-              matches: [
-                [0, 9],
-              ],
-            },
-            address: {
-              value: "Devonshire Street, Sheffield, S3 7SF",
-              matches: [
-                [0, 9],
-              ],
-            },
-            practitioners: [],
-            score: {
-              name: 10,
-              address: 10,
-              practitioners: 0,
-            }
-          },
-          { /* match on practitioner */
-            code: "Y81070",
-            name: {
-              value: "Clover Group Practice",
-              matches: [],
-            },
-            address: {
-              value: "Jordanthorpe Health Centre, 1 Dyche Close, Sheffield, S8 8DJ",
-              matches: [],
-            },
-            practitioners: [
-              {
-                value: "JE Devonshire",
-                matches: [
-                  [3, 12]
-                ],
-              },
-            ],
-            score: {
-              name: 0,
-              address: 0,
-              practitioners: 6,
-            }
-          },
-          { /* match on practice name */
-            code: "H12344",
-            name: {
-              value: "The Devonshire Lodge Practice",
-              matches: [
-                [4, 13],
-              ],
-            },
-            address: {
-              value: "2 Abbotsbury Gardens, Eastcote, Middlesex, HA5 1TG",
-              matches: [],
-            },
-            practitioners: [],
-            score: {
-              name: 7,
-              address: 0,
-              practitioners: 0,
-            }
-          },
-          { /* match on address only */
-            code: "H812370",
-            name: {
-              value: "The Street Lane Practice",
-              matches: [],
-            },
-            address: {
-              value: "12 Devonshire Avenue, Southsea, Portsmouth, Hampshire, PO4 9EH",
-              matches: [
-                [3, 12],
-              ],
-            },
-            practitioners: [],
-            score: {
-              name: 0,
-              address: 8,
-              practitioners: 0,
-            }
-          }
-      ]
+      searchText: "",
+      results: null
     };
   },
 
   render: function() {
-    var numberOfResults = this.state.results !== null ? this.state.results.length : null;
+    var numberOfResults = this.state.results !== null ? this.state.results.length : null,
+        resultsList = null;
 
+    if(numberOfResults) {
+      resultsList = (<ResultsList practices={this.state.results} />);
+    }
     return (
       <div>
         <SearchForm searchText={this.state.searchText}
-                    numberOfResults={numberOfResults} />
-        <ResultsList practices={this.state.results} />
+                    numberOfResults={numberOfResults}
+                    handleSearchTextChange={this.handleSearchTextChange} />
+       {resultsList}
       </div>
     );
+  },
+
+  handleSearchTextChange: function(newSearchText) {
+    this.setState({
+      searchText: newSearchText
+    });
+
+    if(newSearchText.length >= 3) {
+      search(newSearchText).then(function(practices) {
+        console.log('Updating practices: ', practices);
+        this.setState({
+          results: practices
+        });
+      }.bind(this));
+    } else {
+      this.setState({
+        results: null
+      });
+    }
   }
 });
 
@@ -121,7 +61,7 @@ var SearchForm = React.createClass({
       );
     } else {
       hintSpan = (
-        <span class="hint">Practice name, address, GP name, postcode, etc.</span>
+        <span className="hint">Practice name, address, GP name, postcode, etc.</span>
       );
     }
 
@@ -133,12 +73,18 @@ var SearchForm = React.createClass({
             {hintSpan}
           </label>
           <div className="clearfix">
-            <input type="text" name="search" id="search" className="form-control" defaultValue={this.props.searchText} />
+            <input type="text" name="search" id="search" className="form-control"
+                   value={this.props.searchText}
+                   onChange={this.onChange} />
             <button type="submit" className="button">Search</button>
           </div>
         </div>
       </form>
     );
+  },
+
+  onChange: function(event) {
+    this.props.handleSearchTextChange(event.target.value);
   }
 });
 
@@ -166,20 +112,22 @@ var ResultsList = React.createClass({
 var PracticeResult = React.createClass({
   render: function() {
     var practitioners = this.props.practice.practitioners.map(function(practitioner, index) {
+
       return (
-        <p key={index} className="person">
+        <p className="person">
           <img src="/images/person-placeholder.svg" width="45" height="45" alt="" />
           <span dangerouslySetInnerHTML={this.highlightText(practitioner.value, practitioner.matches)} />
         </p>
       );
-    }.bind(this));
+    }.bind(this)),
+    firstPractitioner = practitioners[0];
 
     return (
-      <a href="#" className="result">
+      <div href="#" className="result">
         <h2 dangerouslySetInnerHTML={this.highlightText(this.props.practice.name.value, this.props.practice.name.matches)} />
         <p className="address" dangerouslySetInnerHTML={this.highlightText(this.props.practice.address.value, this.props.practice.address.matches)} />
-        {practitioners}
-      </a>
+        {firstPractitioner}
+      </div>
     );
   },
 
@@ -212,3 +160,15 @@ ReactDOM.render(
   <Application />,
   document.getElementById("application-container")
 );
+
+var currentAjaxRequest = null;
+
+function search(text) {
+
+  if(null !== currentAjaxRequest) {
+    currentAjaxRequest.abort();
+  }
+
+  currentAjaxRequest = $.get('/practices', {search: text});
+  return currentAjaxRequest;
+}
