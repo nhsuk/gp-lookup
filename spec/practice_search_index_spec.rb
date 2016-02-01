@@ -19,7 +19,15 @@ RSpec.describe(PracticeSearchIndex, "#find") do
       code: "H81070",
       name: "Heathcote Medical Centre",
       address: "Heathcote, Tadworth, Surrey, KT20 5TH",
+      practitioners: heathcote_practitioners,
     }
+  }
+
+  let(:heathcote_practitioners) {
+    [
+      "FP Summers",
+      "JQ Autumn",
+    ]
   }
 
   context "with no matches" do
@@ -44,9 +52,11 @@ RSpec.describe(PracticeSearchIndex, "#find") do
               value: "Heathcote, Tadworth, Surrey, KT20 5TH",
               matches: [],
             },
+            practitioners: [],
             score: {
               name: 7,
               address: 0,
+              practitioners: 0,
             }
           }
         ]
@@ -70,9 +80,11 @@ RSpec.describe(PracticeSearchIndex, "#find") do
                 [11, 18],
               ],
             },
+            practitioners: [],
             score: {
               name: 0,
               address: 8,
+              practitioners: 0,
             }
           }
         ]
@@ -98,9 +110,51 @@ RSpec.describe(PracticeSearchIndex, "#find") do
                 [0, 8],
               ],
             },
+            practitioners: [],
             score: {
               name: 10,
               address: 10,
+              practitioners: 0,
+            }
+          }
+        ]
+      )
+    end
+  end
+
+  context "with one match for practitioner" do
+    let(:heathcote_practitioners) {
+      [
+        "FP Summers",
+        "JQ Autumn",
+      ]
+    }
+
+    it "returns one result" do
+      expect(index.find("autumn")).to eq(
+        [
+          {
+            code: "H81070",
+            name: {
+              value: "Heathcote Medical Centre",
+              matches: [],
+            },
+            address: {
+              value: "Heathcote, Tadworth, Surrey, KT20 5TH",
+              matches: [],
+            },
+            practitioners: [
+              {
+                value: "JQ Autumn",
+                matches: [
+                  [3, 8]
+                ],
+              },
+            ],
+            score: {
+              name: 0,
+              address: 0,
+              practitioners: 6,
             }
           }
         ]
