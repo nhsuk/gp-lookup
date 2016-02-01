@@ -123,11 +123,11 @@ var PracticeResult = React.createClass({
     firstPractitioner = practitioners[0];
 
     return (
-      <div href="#" className="result">
+      <a href="#" className="result">
         <h2 dangerouslySetInnerHTML={this.highlightText(this.props.practice.name.value, this.props.practice.name.matches)} />
         <p className="address" dangerouslySetInnerHTML={this.highlightText(this.props.practice.address.value, this.props.practice.address.matches)} />
         {firstPractitioner}
-      </div>
+      </a>
     );
   },
 
@@ -141,15 +141,16 @@ var PracticeResult = React.createClass({
       endIndices[startEndPair[1]] = true;
     });
 
-    for(var i = 0 ; i < text.length ; i++) {
+    for(var i = 0 ; i < text.length + 1 ; i++) {
       if(startIndices[i]){
         output += '<strong>';
       }
       if(endIndices[i - 1]){
         output += '</strong>';
       }
-
-      output += text[i];
+      if(!!text[i]) {
+        output += text[i];
+      }
     }
     return {__html: output};
   }
