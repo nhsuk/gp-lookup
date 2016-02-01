@@ -192,10 +192,8 @@ var PracticeResult = React.createClass({
       startIndices[startEndPair[0]] = true;
       endIndices[startEndPair[1]] = true;
     });
-    console.log('starts: ', startIndices, ' ends: ', endIndices);
 
     for(var i = 0 ; i < text.length ; i++) {
-      console.log('position ', i);
       if(startIndices[i]){
         output += '<strong>';
       }
@@ -205,7 +203,6 @@ var PracticeResult = React.createClass({
 
       output += text[i];
     }
-    console.log('highlighted: ', output);
     return {__html: output};
   }
 
