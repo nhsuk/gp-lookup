@@ -1,0 +1,392 @@
+#global-header, .condition-images, .pagination, .condition-navigation {
+  zoom: 1; }
+  #global-header:after, .condition-images:after, .pagination:after, .condition-navigation:after {
+    content: "";
+    display: block;
+    clear: both; }
+
+/*
+   Based on:
+   http://meyerweb.com/eric/tools/css/reset/
+*/
+main,
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline; }
+
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+details,
+figcaption,
+time {
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  font-weight: inherit; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+@-ms-viewport {
+  width: device-width; }
+@-o-viewport {
+  width: device-width; }
+body {
+  -webkit-text-size-adjust: none; }
+
+html {
+  background-color: #231f20; }
+
+body {
+  background: #ffffff; }
+
+.block-container, #global-header .header-container, #global-footer .footer-container, #skiplink-container > div, #global-cookies-banner p, .phase-banner {
+  max-width: 960px;
+  padding: 0 5%;
+  margin: 0 auto; }
+
+#global-header {
+  background-color: #0072C6;
+  border-bottom: 6px solid #e6f1f9; }
+  #global-header a.header-logo {
+    display: block;
+    float: left;
+    width: 90px;
+    height: 36px;
+    margin: 15px 0 15px 0; }
+    #global-header a.header-logo:focus {
+      background-color: transparent; }
+    #global-header a.header-logo img {
+      display: block; }
+
+#content {
+  padding-top: 1px; }
+
+#global-footer {
+  background-color: #231f20;
+  color: #bdbcbc;
+  padding: 48px 0 24px 0;
+  margin-top: 48px;
+  border-top: 6px solid #656263;
+  font-size: 13px;
+  line-height: 22px; }
+  @media (min-width: 769px) {
+    #global-footer {
+      font-size: 14px;
+      line-height: 24px; } }
+  #global-footer a {
+    color: #bdbcbc; }
+    #global-footer a:focus {
+      color: #231f20; }
+  #global-footer nav li {
+    display: inline;
+    list-style: none;
+    margin: 0 12px 0 0;
+    padding: 0; }
+
+.content-measure h1, .content-measure h2, .content-measure h3, .content-measure h4, .content-measure h5, .content-measure h6,
+.content-measure ol, .content-measure ul, .content-measure dl,
+.content-measure p,
+.content-measure .notice {
+  max-width: 544px; }
+  @media (min-width: 769px) {
+    .content-measure h1, .content-measure h2, .content-measure h3, .content-measure h4, .content-measure h5, .content-measure h6,
+    .content-measure ol, .content-measure ul, .content-measure dl,
+    .content-measure p,
+    .content-measure .notice {
+      max-width: 612px; } }
+
+.measure, .pagination, .condition-navigation {
+  max-width: 34em; }
+
+/*
+  Note: fonts at the moment are being served by fonts.com
+  This will need to change ;)
+*/
+body {
+  font-family: "Neue Frutiger W04", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #231f20; }
+  @media (min-width: 769px) {
+    body {
+      font-size: 18px;
+      line-height: 24px; } }
+
+h1 {
+  font-weight: 700;
+  font-size: 31px;
+  line-height: 36px;
+  margin: 25px 0; }
+  @media (min-width: 769px) {
+    h1 {
+      font-size: 56px;
+      line-height: 60px;
+      margin: 36px 0; } }
+
+.heading-xlarge, .condition-navigation + .content-measure h1 {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 30px;
+  margin: 25px 0 20px 0; }
+  @media (min-width: 769px) {
+    .heading-xlarge, .condition-navigation + .content-measure h1 {
+      font-size: 32px;
+      line-height: 36px;
+      margin: 36px 0 24px 0; } }
+
+h2 {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 26px;
+  margin: 20px 0 15px 0; }
+  @media (min-width: 769px) {
+    h2 {
+      font-size: 26px;
+      line-height: 30px;
+      margin: 36px 0 18px 0; } }
+
+h3 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 15px 0 15px 0; }
+  @media (min-width: 769px) {
+    h3 {
+      font-size: 21px;
+      line-height: 24px;
+      margin: 24px 0 18px 0; } }
+
+h4, h5, h6 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  margin: 20px 0 15px 0; }
+  @media (min-width: 769px) {
+    h4, h5, h6 {
+      font-size: 18px;
+      line-height: 24px;
+      margin: 24px 0 18px 0; } }
+
+p {
+  margin: 15px 0; }
+  @media (min-width: 769px) {
+    p {
+      margin: 18px 0; } }
+
+ul {
+  list-style-type: disc;
+  list-style-position: outside; }
+  @media (min-width: 769px) {
+    ul {
+      margin-bottom: 18px; } }
+
+ol {
+  list-style-type: decimal;
+  list-style-position: outside; }
+  @media (min-width: 769px) {
+    ol {
+      margin-bottom: 18px; } }
+
+li {
+  margin-left: 1.25em; }
+  @media (min-width: 769px) {
+    li {
+      margin-bottom: 12px; } }
+
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3); }
+
+a {
+  color: #0072C6;
+  text-decoration: underline;
+  cursor: pointer; }
+  a:visited {
+    color: #33006F; }
+  a:hover {
+    color: #005695; }
+  a:focus {
+    color: #231f20;
+    background-color: #FFED00;
+    outline: 3px solid #FFED00; }
+
+@media (min-width: 769px) {
+  table {
+    margin-bottom: 36px; } }
+
+th, td {
+  border-bottom: 1px solid #b9d2dc;
+  text-align: left;
+  padding: 8px 12px 8px 0;
+  font-size: 14px;
+  line-height: 22px; }
+  @media (min-width: 769px) {
+    th, td {
+      font-size: 16px;
+      line-height: 24px; } }
+
+th {
+  font-family: "Frutiger Neue W01 Bd", Arial, sans-serif;
+  font-weight: normal; }
+
+b, strong,
+i, em {
+  font-weight: 700; }
+
+img {
+  display: block;
+  max-width: 100%; }
+
+.condition-images {
+  margin: 36px 0 20px 0; }
+  @media (min-width: 707px) {
+    .condition-images {
+      text-align: left; } }
+  .condition-images figure {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    margin: 0 auto 18px auto; }
+    @media (min-width: 707px) {
+      .condition-images figure {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 18px 18px 0; } }
+  .condition-images figcaption {
+    font-size: 14px;
+    line-height: 22px;
+    padding: 6px 6px 12px 6px;
+    background-color: #f2f8fc; }
+    @media (min-width: 769px) {
+      .condition-images figcaption {
+        font-size: 16px;
+        line-height: 24px; } }
+
+#skiplink-container {
+  background-color: #fffab3; }
+  #skiplink-container a {
+    position: absolute;
+    left: -999em;
+    display: inline-block;
+    padding: 6px;
+    font-size: 14px; }
+    #skiplink-container a:focus {
+      position: static;
+      outline: 0; }
+    @media (min-width: 769px) {
+      #skiplink-container a {
+        font-size: 16px; } }
+
+.notice {
+  padding: 18px;
+  margin: 36px 0;
+  background: #fffab3;
+  border-left: 3px solid #FFED00; }
+  .notice :first-child {
+    margin-top: 0; }
+  .notice :last-child {
+    margin-bottom: 0; }
+
+#global-cookies-banner {
+  background-color: #cce3f4;
+  padding: 12px 0;
+  font-size: 13px;
+  line-height: 22px;
+  display: none; }
+
+.phase-banner {
+  font-size: 13px;
+  line-height: 22px; }
+  .phase-banner p {
+    border-bottom: 1px solid #b9d2dc;
+    margin: 0;
+    padding: 18px 0; }
+  .phase-banner b {
+    color: #9B004F; }
+
+.pagination {
+  margin: 48px 0;
+  padding-top: 18px;
+  border-top: 2px solid #b9d2dc; }
+  .pagination .previous-page {
+    margin-top: 12px; }
+  @media (min-width: 769px) {
+    .pagination .previous-page {
+      margin-top: 0;
+      float: left;
+      width: 50%; }
+    .pagination .next-page {
+      float: right;
+      text-align: right;
+      width: 50%; } }
+  .pagination a {
+    display: inline-block;
+    text-decoration: none !important; }
+  .pagination .prefix {
+    font-size: 13px;
+    color: #231f20; }
+    @media (min-width: 769px) {
+      .pagination .prefix {
+        font-size: 14px; } }
+  .pagination .title {
+    display: block;
+    text-decoration: underline; }
+
+.condition-navigation ol {
+  font-size: 14px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #b9d2dc; }
+  @media (min-width: 769px) {
+    .condition-navigation ol {
+      font-size: 16px;
+      -webkit-columns: 2;
+      -moz-columns: 2;
+      columns: 2; } }
+.condition-navigation li {
+  margin-bottom: 0;
+  padding-bottom: 5px; }
+  @media (min-width: 769px) {
+    .condition-navigation li {
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid; } }
+.condition-navigation a {
+  display: inline-block;
+  padding: 0 2px; }
+.condition-navigation a:focus {
+  outline: 0; }

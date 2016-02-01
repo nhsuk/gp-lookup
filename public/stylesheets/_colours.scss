@@ -1,0 +1,36 @@
+// NHS Colour palette, from http://www.nhsidentity.nhs.uk/
+$pure-black: #000000;
+$black: #231f20;
+$white: #ffffff;
+
+$grey-1: #667078;
+$grey-2: #b9d2dc;
+$grey-3: #dbe4f3;
+$grey-4: #eff3f5;
+
+$blue: #0072C6;
+$dark-green: #006647;
+$green: #00953A;
+$light-green: #77BC1F;
+$aqua-green: #00A19B;
+$aqua-blue: #00A7CE;
+$light-blue: #0082CA;
+$dark-blue: #002F87;
+$purple: #33006F;
+$dark-pink: #9B004F;
+$dark-red: #8F1336;
+$red: #E2231A;
+$orange: #F38B00;
+$yellow: #FFED00;
+
+// Semantic colour names
+$page-colour: $white;
+$text-colour: $black;
+
+$link-colour: $blue;
+$link-highlight-colour: shade($blue, 25%);
+$link-visited-colour: $purple;
+
+$focus-colour: $yellow;
+
+$border-colour: $grey-2;          // Borders, seperators, rules, keylines etc.

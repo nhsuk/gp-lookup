@@ -29,6 +29,10 @@ def practices_matching(search_term)
   SEARCH_INDEX.find(search_term)
 end
 
+get '/' do
+  erb :index
+end
+
 get "/practices" do
   search_term = params.fetch("search", "").downcase
 
