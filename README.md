@@ -20,10 +20,13 @@ parameter: `/practices?search=lake+side`.
 
 ## Updating data
 
-Get new data from the [general-medical-practices][gmp] repo:
+Get new data from the [general-medical-practices][practices] and
+[general-medical-practitioners][practitioners] repos:
 
     curl https://raw.githubusercontent.com/nhsalpha/general-medical-practices/master/output/general-medical-practices.json > data/general-medical-practices.json
-    git add data/general-medical-practices.json
-    git commit --message "Updated practice data"
+    curl https://raw.githubusercontent.com/nhsalpha/general-medical-practitioners/master/output/general-medical-practitioners.json > data/general-medical-practitioners.json
+    git add data/general-medical-{practices,practitioners}.json
+    git commit --message "Updated practice and practitioner data"
 
-[gmp]: https://github.com/nhsalpha/general-medical-practices
+[practices]: https://github.com/nhsalpha/general-medical-practices
+[practitioners]: https://github.com/nhsalpha/general-medical-practitioners
