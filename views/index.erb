@@ -15,6 +15,7 @@
   <script src="javascripts/react-dom.js"></script>
   <script src="javascripts/babel-core-5.8.23-browser.min.js"></script>
   <script src="javascripts/jquery-2.2.0.js"></script>
+  <script src="javascripts/lookup.jsx" type="text/babel"></script>
 
   <!--[if lt IE 9]>
     <script src="/javascripts/vendor/html5shiv.js" type="text/javascript"></script>
@@ -55,71 +56,11 @@
 
 <main id="content" role="main">
 
-  <form name="" id="" action="" method="get" class="gp-finder-search">
-    <div class="block-container">
-      <label for="search">
-        Find your GP practice
-        <span class="hint">Practice name, address, GP name, postcode, etc.</span>
-      </label>
-      <div class="clearfix">
-        <input type="text" name="search" id="search" class="form-control" value="" />
-        <button type="submit" class="button">Search</button>
-      </div>
-    </div>
-  </form>
+  <div id="application-container"></div>
 
-  <form name="" id="" action="" method="get" class="gp-finder-search">
-    <div class="block-container">
-      <label for="search">
-        Find your GP practice
-        <span class="hint">123456 results found for <span class="visuallyhidden">Lakeside</span></span>
-      </label>
-      <div class="clearfix">
-        <input type="text" name="search" id="search" class="form-control" value="Lakeside" />
-        <button type="submit" class="button">Search</button>
-      </div>
-    </div>
-  </form>
 
   <div class="block-container">
 
-    <div class="gp-finder-results">
-
-      <a href="#" class="result">
-        <h2><strong>Devonshire</strong> Green Medical Centre</h2>
-        <p class="address">126 <strong>Devonshire</strong> Street, Sheffield, S3 7SF</p>
-      </a>
-
-      <a href="#" class="result">
-        <h2>Clover Group Practice</h2>
-        <p class="address">Jordanthorpe Health Centre, 1 Dyche Close, Sheffield, S8 8DJ</p>
-        <p class="person">
-          <img src="/images/person-placeholder.svg" width="45" height="45" alt="" />
-          Dr JE <strong>Devonshire</strong>
-        </p>
-      </a>
-
-      <a href="#" class="result">
-        <h2>The <strong>Devonshire</strong> Lodge Practice</h2>
-        <p class="address">2 Abbotsbury Gardens, Eastcote, Middlesex, HA5 1TG</p>
-      </a>
-
-      <a href="#" class="result">
-        <h2>The Street Lane Practice</h2>
-        <p class="address">12 <strong>Devonshire</strong> Avenue, Southsea, Portsmouth,
-          Hampshire, PO4 9EH</p>
-      </a>
-
-      <a href="#" class="result">
-        <h2>Clover Group Practice</h2>
-        <p class="address">Jordanthorpe Health Centre, 1 Dyche Close, Sheffield, S8 8DJ</p>
-        <p class="person">
-          <img src="/images/person-placeholder.svg" width="45" height="45" alt="" />
-          Dr JE <strong>Devonshire</strong>
-        </p>
-      </a>
-
-    </div>
 
     <nav class="pagination gp-finder-pagination" role="navigation">
       <div class="previous-page">
