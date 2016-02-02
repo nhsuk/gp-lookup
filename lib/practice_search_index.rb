@@ -70,7 +70,14 @@ class PracticeSearchIndex
         practices.fetch(index),
         results,
       )
-    }
+    }.sort_by { |result|
+      scores = result.fetch(:score).values
+
+      [
+        scores.max,
+        scores,
+      ]
+    }.reverse
   end
 
 private
