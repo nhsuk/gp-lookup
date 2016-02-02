@@ -116,6 +116,7 @@ var PracticeResult = React.createClass({
       return (
         <p className="person">
           <img src="/images/person-placeholder.svg" width="45" height="45" alt="" />
+          { " " }
           <span dangerouslySetInnerHTML={this.highlightText(practitioner.value, practitioner.matches)} />
         </p>
       );
