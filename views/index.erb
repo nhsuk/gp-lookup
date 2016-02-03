@@ -13,9 +13,8 @@
   <link href="/stylesheets/widget.css" media="screen" rel="stylesheet" type="text/css" />
   <script src="javascripts/react.js"></script>
   <script src="javascripts/react-dom.js"></script>
-  <script src="javascripts/babel-core-5.8.23-browser.min.js"></script>
   <script src="javascripts/jquery-2.2.0.js"></script>
-  <script src="javascripts/lookup.jsx" type="text/babel"></script>
+  <script src="javascripts/components.js"></script>
 
   <!--[if lt IE 9]>
     <script src="/javascripts/vendor/html5shiv.js" type="text/javascript"></script>
@@ -56,7 +55,13 @@
 
 <main id="content" role="main">
 
-  <div id="application-container"></div>
+  <%=
+    react_component(
+      "Application",
+      initialSearchText: search_term,
+      initialResults: practices,
+    )
+  %>
 
 <!--
   <div class="block-container">
@@ -100,6 +105,7 @@
   </div>
 </footer>
 
+<script src="javascripts/lookup.js"></script>
 <script type="text/javascript" src="/javascripts/cookies.js"></script>
 
 </body>

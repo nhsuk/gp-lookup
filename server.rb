@@ -1,8 +1,10 @@
+require "babel-transpiler"
 require "json"
 require "sinatra"
 
 require "./lib/practice_search_index"
 require "./lib/practice_data_transformer"
+require "./lib/react/exec_js_renderer"
 
 PRACTICES = JSON.parse(
   File.read("data/general-medical-practices.json"),
@@ -26,15 +28,21 @@ def all_practices
 end
 
 def practices_matching(search_term)
-  SEARCH_INDEX.find(search_term)
+  SEARCH_INDEX.find(search_term.downcase)
 end
 
 get '/' do
-  erb :index
+  search_term = params.fetch("search", "")
+  practices = search_term.empty? ? nil : practices_matching(search_term)
+
+  erb :index, locals: {
+    search_term: search_term,
+    practices: practices,
+  }
 end
 
 get "/practices" do
-  search_term = params.fetch("search", "").downcase
+  search_term = params.fetch("search", "")
 
   practices = if search_term.empty?
     all_practices
@@ -44,4 +52,28 @@ get "/practices" do
 
   content_type :json
   JSON.pretty_generate(practices)
+end
+
+helpers do
+  def react_component(component_name, props = {}, prerender_options = {})
+    js_files = %w(
+      public/javascripts/react-server.js
+      public/javascripts/components.js
+    )
+
+    js_code = js_files.map { |file_name|
+      File.read(file_name)
+    }.join(";")
+
+    props_json = props.to_json
+
+    renderer = React::ServerRendering::ExecJSRenderer.new(code: js_code)
+    component = renderer.render(
+      component_name,
+      props_json,
+      prerender_options,
+    )
+
+    %(<div data-react-class="#{component_name}" data-react-props="#{CGI::escapeHTML(props_json)}">#{component}</div>)
+  end
 end

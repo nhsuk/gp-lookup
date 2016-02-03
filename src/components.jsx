@@ -1,16 +1,10 @@
 "use strict";
 
-var AuthenticationState = {
-  WAITING: 1,
-  AUTHENTICATED: 2,
-  UNAUTHENTICATED: 3
-};
-
 var Application = React.createClass({
   getInitialState: function() {
     return {
-      searchText: "",
-      results: null
+      searchText: this.props.initialSearchText,
+      results: this.props.initialResults
     };
   },
 
@@ -157,20 +151,3 @@ var PracticeResult = React.createClass({
   }
 
 });
-
-ReactDOM.render(
-  <Application />,
-  document.getElementById("application-container")
-);
-
-var currentAjaxRequest = null;
-
-function search(text) {
-
-  if(null !== currentAjaxRequest) {
-    currentAjaxRequest.abort();
-  }
-
-  currentAjaxRequest = $.get('/practices', {search: text});
-  return currentAjaxRequest;
-}
