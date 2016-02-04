@@ -53,6 +53,10 @@ get "/practices" do
   JSON.pretty_generate(practices)
 end
 
+get "/type-2-diabetes/going-for-regular-check-ups" do
+  erb :regular_check_ups
+end
+
 helpers do
   def react_component(component_name, props = {})
     renderer = React::ExecJSRenderer.new(
