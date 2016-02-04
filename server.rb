@@ -55,7 +55,7 @@ get "/practices" do
 end
 
 helpers do
-  def react_component(component_name, props = {}, prerender_options = {})
+  def react_component(component_name, props = {})
     js_files = %w(
       public/javascripts/react-server.js
       public/javascripts/components.js
@@ -65,15 +65,7 @@ helpers do
       File.read(file_name)
     }.join(";")
 
-    props_json = props.to_json
-
-    renderer = React::ServerRendering::ExecJSRenderer.new(code: js_code)
-    component = renderer.render(
-      component_name,
-      props_json,
-      prerender_options,
-    )
-
-    %(<div data-react-class="#{component_name}" data-react-props="#{CGI::escapeHTML(props_json)}">#{component}</div>)
+    renderer = React::ExecJSRenderer.new(js_code)
+    renderer.render(component_name, props)
   end
 end
