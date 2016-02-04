@@ -106,19 +106,19 @@ var ResultsList = React.createClass({
 var PracticeResult = React.createClass({
   render: function() {
     var practitioners = this.props.practice.practitioners.map(function(practitioner, index) {
-
-      return (
-        <p className="person">
-          <img src="/images/person-placeholder.svg" width="45" height="45" alt="" />
-          { " " }
-          <span dangerouslySetInnerHTML={this.highlightText(practitioner.value, practitioner.matches)} />
-        </p>
-      );
-    }.bind(this)),
-    firstPractitioner = practitioners[0];
+          return (
+            <p className="person">
+              <img src="/images/person-placeholder.svg" width="45" height="45" alt="" />
+              { " " }
+              <span dangerouslySetInnerHTML={this.highlightText(practitioner.value, practitioner.matches)} />
+            </p>
+          );
+        }.bind(this)),
+        firstPractitioner = practitioners[0],
+        href = "/book/" + this.props.practice.code;
 
     return (
-      <a href="#" className="result">
+      <a href={href} className="result">
         <h2 dangerouslySetInnerHTML={this.highlightText(this.props.practice.name.value, this.props.practice.name.matches)} />
         <p className="address" dangerouslySetInnerHTML={this.highlightText(this.props.practice.address.value, this.props.practice.address.matches)} />
         {firstPractitioner}
