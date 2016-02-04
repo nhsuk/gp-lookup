@@ -136,7 +136,7 @@ var PracticeResult = React.createClass({
         "p",
         { className: "person" },
         React.createElement("img", { src: "/images/person-placeholder.svg", width: "45", height: "45", alt: "" }),
-        " ",
+        " Dr. ",
         React.createElement("span", { dangerouslySetInnerHTML: this.highlightText(practitioner.value, practitioner.matches) })
       );
     }).bind(this)),
