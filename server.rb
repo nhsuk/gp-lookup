@@ -1,4 +1,3 @@
-require "babel-transpiler"
 require "json"
 require "sinatra"
 
