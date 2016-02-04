@@ -55,7 +55,7 @@ var SearchForm = React.createClass({
       );
     } else {
       hintSpan = (
-        <span className="hint">Practice name, address, GP name, postcode, etc.</span>
+        <span className="hint">Search for practice name, address, GP name, postcode, etc</span>
       );
     }
 

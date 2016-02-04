@@ -45,6 +45,12 @@
   </div>
 </header>
 
+<div class="service-banner">
+  <div class="block-container">
+    <h1>Book a type 2 diabetes blood test</h1>
+  </div>
+</div>
+
 <div class="phase-banner">
   <p>
     <b>This is a new service.</b> We're still working on it. Send feedback to
@@ -54,6 +60,11 @@
 </div>
 
 <main id="content" role="main">
+  <div class="block-container">
+    <div class="content-measure">
+      <p>To tell you how to book a blood test we need to know which GP practice you’re registered with.</p>
+    </div>
+  </div>
 
   <%=
     react_component(
@@ -62,6 +73,10 @@
       initialResults: practices,
     )
   %>
+
+  <div class="block-container">
+    <p>Don’t have a GP? <a href="http://nhsalpha.herokuapp.com/register-with-a-gp/start">Register with a GP practice now</a></p>
+  </div>
 
 <!--
   <div class="block-container">

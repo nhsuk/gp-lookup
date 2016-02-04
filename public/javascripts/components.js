@@ -69,7 +69,7 @@ var SearchForm = React.createClass({
       hintSpan = React.createElement(
         "span",
         { className: "hint" },
-        "Practice name, address, GP name, postcode, etc."
+        "Search for practice name, address, GP name, postcode, etc"
       );
     }
 
