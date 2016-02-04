@@ -56,16 +56,10 @@ end
 
 helpers do
   def react_component(component_name, props = {})
-    js_files = %w(
-      public/javascripts/react-server.js
-      public/javascripts/components.js
+    renderer = React::ExecJSRenderer.new(
+      ["public/javascripts/components.js"]
     )
 
-    js_code = js_files.map { |file_name|
-      File.read(file_name)
-    }.join(";")
-
-    renderer = React::ExecJSRenderer.new(js_code)
     renderer.render(component_name, props)
   end
 end

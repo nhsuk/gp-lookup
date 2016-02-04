@@ -2,8 +2,8 @@ require "execjs"
 
 module React
   class ExecJSRenderer
-    def initialize(code)
-      @context = ExecJS.compile(GLOBAL_WRAPPER + code)
+    def initialize(component_js_files)
+      @component_js_files = component_js_files
     end
 
     def render_static_markup(component_name, props = {})
@@ -45,6 +45,8 @@ module React
     end
 
   private
+    attr_reader :component_js_files
+
     def default_render_options
       {
         render_function: "renderToString",
@@ -56,7 +58,7 @@ module React
     end
 
     def render_component(component_name, json_props, render_function)
-      js_code = <<-JS
+      code_to_eval = <<-JS
         (function () {
           return ReactDOMServer.#{render_function}(
             React.createElement(#{component_name}, #{json_props})
@@ -64,7 +66,7 @@ module React
         })()
       JS
 
-      @context.eval(js_code)
+      context.eval(code_to_eval)
     rescue ExecJS::ProgramError => err
       raise PrerenderError.new(component_name, props, err)
     end
@@ -90,6 +92,22 @@ module React
       attributes.map { |key, value|
         %(#{key}="#{CGI::escapeHTML(value)}")
       }.join(" ")
+    end
+
+    def context
+      @context ||= ExecJS.compile(GLOBAL_WRAPPER + js_code)
+    end
+
+    def js_code
+      @js_code ||= js_files.map { |file_name| File.read(file_name) }.join(";")
+    end
+
+    def js_files
+      react_js_files + component_js_files
+    end
+
+    def react_js_files
+      ["public/javascripts/react-server.js"]
     end
 
     # Handle Node.js & other ExecJS contexts
