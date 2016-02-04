@@ -23,6 +23,19 @@ button:focus {
 
 //////////////
 
+.service-banner {
+  padding: 18px 0;
+  background-color: rgba($blue, 0.1);
+
+  h1 {
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0;
+  }
+}
+
+//////////////
+
 .gp-finder-search {
 
   padding: 18px 0 0 0;
@@ -70,7 +83,7 @@ button:focus {
     line-height: 54px;
     text-indent: -999em;
     color: $white;
-    background: url("/public/images/icon-search.svg") center no-repeat $blue;
+    background: url("/images/icon-search.svg") center no-repeat $blue;
     background-size: 65%;
     border: 0;
 
@@ -163,4 +176,49 @@ button:focus {
   @include media(large) {
     max-width: 75%;
   }
+}
+
+//////////////
+
+// Book page elements
+.practice-detail-section {
+  margin: 36px 0;
+
+  h2 {
+    font-weight: 400;
+    margin: 0;
+  }
+
+  p {
+    margin: 6px 0;
+    font-size: 16px;
+    @include media(large) {
+      margin: 12px 0;
+      font-size: 18px;
+    }
+  }
+}
+
+.call-to-action-section {
+  margin: 36px 0;
+  padding: 18px 0 1px 0;
+  background-color: rgba($blue, 0.1);
+
+  h3 {
+    margin-top: 0;
+  }
+
+  a {
+    font-size: 92px;
+    line-height: 0.8;
+    font-weight: 700;
+    letter-spacing: -2px;
+    text-decoration: none;
+    color: $blue;
+  }
+}
+
+.smallprint {
+  font-size: 15px;
+  color: rgba($black, 0.5);
 }

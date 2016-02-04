@@ -14,6 +14,14 @@ button:focus {
   top: -999em;
   left: -999em; }
 
+.service-banner {
+  padding: 18px 0;
+  background-color: rgba(0, 114, 198, 0.1); }
+  .service-banner h1 {
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0; }
+
 .gp-finder-search {
   padding: 18px 0 0 0;
   background-color: rgba(0, 114, 198, 0.1); }
@@ -114,5 +122,36 @@ button:focus {
 @media (min-width: 769px) {
   .gp-finder-pagination {
     max-width: 75%; } }
+
+.practice-detail-section {
+  margin: 36px 0; }
+  .practice-detail-section h2 {
+    font-weight: 400;
+    margin: 0; }
+  .practice-detail-section p {
+    margin: 6px 0;
+    font-size: 16px; }
+    @media (min-width: 769px) {
+      .practice-detail-section p {
+        margin: 12px 0;
+        font-size: 18px; } }
+
+.call-to-action-section {
+  margin: 36px 0;
+  padding: 18px 0 1px 0;
+  background-color: rgba(0, 114, 198, 0.1); }
+  .call-to-action-section h3 {
+    margin-top: 0; }
+  .call-to-action-section a {
+    font-size: 92px;
+    line-height: 0.8;
+    font-weight: 700;
+    letter-spacing: -2px;
+    text-decoration: none;
+    color: #0072C6; }
+
+.smallprint {
+  font-size: 15px;
+  color: rgba(35, 31, 32, 0.5); }
 
 /*# sourceMappingURL=widget.css.map */
