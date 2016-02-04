@@ -30,6 +30,14 @@ def practices_matching(search_term)
   SEARCH_INDEX.find(search_term.downcase)
 end
 
+def find_practice(organisation_code)
+  OpenStruct.new(
+    PRACTICES.find { |practice|
+      practice.fetch(:organisation_code) == organisation_code
+    }
+  )
+end
+
 get '/' do
   search_term = params.fetch("search", "")
   practices = search_term.empty? ? nil : practices_matching(search_term)
@@ -53,8 +61,10 @@ get "/practices" do
   JSON.pretty_generate(practices)
 end
 
-get "/book" do
-  erb :book
+get "/book/:organisation_code" do
+  practice = find_practice(params.fetch("organisation_code"))
+
+  erb :book, locals: { practice: practice }
 end
 
 get "/type-2-diabetes/going-for-regular-check-ups" do
