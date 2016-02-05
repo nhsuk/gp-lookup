@@ -74,7 +74,7 @@ button:focus {
     max-width: 75%; } }
 .gp-finder-results a.result {
   display: block;
-  margin: 18px 0;
+  margin: 9px 0;
   padding: 12px 12px 6px 12px;
   text-decoration: none;
   color: #231f20;
@@ -83,7 +83,8 @@ button:focus {
   border-bottom-width: 2px; }
   @media (min-width: 769px) {
     .gp-finder-results a.result {
-      max-width: 75%; } }
+      max-width: 75%;
+      margin: 18px 0; } }
 .gp-finder-results a.result {
   transition: background-color 0.2s; }
   .gp-finder-results a.result:hover {

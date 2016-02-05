@@ -109,7 +109,7 @@ button:focus {
 
   a.result {
     display: block;
-    margin: 18px 0;
+    margin: 9px 0;
     padding: 12px 12px 6px 12px;
     text-decoration: none;
     color: $black;
@@ -119,6 +119,7 @@ button:focus {
 
     @include media(large) {
       max-width: 75%;
+      margin: 18px 0;
     }
   }
 
