@@ -77,7 +77,7 @@ class PracticeSearchIndex
         scores.max,
         scores,
       ]
-    }.reverse
+    }.reverse.take(max_results)
   end
 
 private
