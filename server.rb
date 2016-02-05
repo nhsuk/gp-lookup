@@ -20,6 +20,7 @@ SEARCH_INDEX = PracticeSearchIndex.new(
     practices: PRACTICES,
     practitioners: PRACTITIONERS,
   ).call,
+  max_results: 20,
 )
 
 def all_practices
