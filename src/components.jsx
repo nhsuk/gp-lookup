@@ -114,14 +114,13 @@ var PracticeResult = React.createClass({
             </p>
           );
         }.bind(this)),
-        firstPractitioner = practitioners[0],
         href = "/book/" + this.props.practice.code;
 
     return (
       <a href={href} className="result">
         <h2 dangerouslySetInnerHTML={this.highlightText(this.props.practice.name.value, this.props.practice.name.matches)} />
         <p className="address" dangerouslySetInnerHTML={this.highlightText(this.props.practice.address.value, this.props.practice.address.matches)} />
-        {firstPractitioner}
+        {practitioners}
       </a>
     );
   },

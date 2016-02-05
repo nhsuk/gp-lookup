@@ -140,7 +140,6 @@ var PracticeResult = React.createClass({
         React.createElement("span", { dangerouslySetInnerHTML: this.highlightText(practitioner.value, practitioner.matches) })
       );
     }).bind(this)),
-        firstPractitioner = practitioners[0],
         href = "/book/" + this.props.practice.code;
 
     return React.createElement(
@@ -148,7 +147,7 @@ var PracticeResult = React.createClass({
       { href: href, className: "result" },
       React.createElement("h2", { dangerouslySetInnerHTML: this.highlightText(this.props.practice.name.value, this.props.practice.name.matches) }),
       React.createElement("p", { className: "address", dangerouslySetInnerHTML: this.highlightText(this.props.practice.address.value, this.props.practice.address.matches) }),
-      firstPractitioner
+      practitioners
     );
   },
 
