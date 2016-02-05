@@ -1,5 +1,6 @@
 @import "colours";
 @import "media-queries";
+@import "colour-tint-and-shade";
 
 .clearfix {
   zoom: 1;
@@ -38,8 +39,12 @@ button:focus {
 
 .gp-finder-search {
 
-  padding: 18px 0 0 0;
+  padding: 9px 0;
   background-color: rgba($blue, 0.1);
+
+  @include media(large) {
+    padding: 18px 0;
+  }
 
   label {
     display: block;
@@ -91,7 +96,7 @@ button:focus {
   }
 
   .clearfix {
-    padding: 12px 0 18px 0;
+    padding: 12px 0 0 0;
   }
 
 }
@@ -104,21 +109,39 @@ button:focus {
 
   a.result {
     display: block;
-    margin: 18px 0;
+    margin: 9px 0;
     padding: 12px 12px 6px 12px;
     text-decoration: none;
     color: $black;
     background-color: $white;
     border: 1px solid $grey-2;
     border-bottom-width: 2px;
-    transition: opacity 0.2s;
+
+    @include media(large) {
+      max-width: 75%;
+      margin: 18px 0;
+    }
   }
 
-  &:hover {
+  a.result {
+    transition: background-color 0.2s;
+    &:hover {
+      background-color: tint($yellow, 90%);
+    }
+  }
+
+  @media (any-pointer: fine) {
     a.result {
-      opacity: 0.2;
-      &:hover {
-        opacity: 1;
+      transition: opacity 0.2s;
+    }
+
+    &:hover {
+      a.result {
+        opacity: 0.2;
+        &:hover {
+          opacity: 1;
+          background-color: $white;
+        }
       }
     }
   }
@@ -167,7 +190,7 @@ button:focus {
     padding-left: 2px;
     padding-right: 2px;
     font-weight: 400;
-    background-color: rgba($blue, 0.1);
+    background-color: tint($blue, 90%);
   }
 
 }
