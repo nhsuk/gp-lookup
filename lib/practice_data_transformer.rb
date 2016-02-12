@@ -11,7 +11,7 @@ class PracticeDataTransformer
       {
         code: code,
         name: practice.fetch(:name),
-        address: practice.fetch(:address),
+        location: practice.fetch(:location),
         practitioners: practitioners_map.fetch(code, []),
       }
     }
