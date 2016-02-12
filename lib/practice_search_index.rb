@@ -38,7 +38,7 @@ class PracticeSearchIndex
 
     addresses_haystack.find(search_term, max_results).each do |index, matches, _weight|
       result = practice_results[index]
-      address = practices.fetch(index).fetch(:address)
+      address = practices.fetch(index).fetch(:location).fetch(:address)
 
       result.push(
         {
@@ -98,7 +98,7 @@ private
 
     @addresses_haystack = Blurrily::Map.new
     practices.each.with_index do |practice, index|
-      addresses_haystack.put(practice.fetch(:address), index)
+      addresses_haystack.put(practice.fetch(:location).fetch(:address), index)
     end
 
     @practitioners_haystack = Blurrily::Map.new
@@ -154,7 +154,7 @@ private
         matches: name_result.fetch(:matches),
       },
       address: {
-        value: practice.fetch(:address),
+        value: practice.fetch(:location).fetch(:address),
         matches: address_result.fetch(:matches),
       },
       practitioners: practitioners_list,

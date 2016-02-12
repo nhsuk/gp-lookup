@@ -18,7 +18,11 @@ RSpec.describe(PracticeSearchIndex, "#find") do
     {
       code: "H81070",
       name: "Heathcote Medical Centre",
-      address: "Heathcote, Tadworth, Surrey, KT20 5TH",
+      location: {
+        address: "Heathcote, Tadworth, Surrey, KT20 5TH",
+        latitude: "51.294906616210937",
+        longitude: "-0.22813686728477478",
+      },
       practitioners: heathcote_practitioners,
     }
   }
