@@ -9,17 +9,19 @@ class LocationSearchIndex
     @max_results = max_results
   end
 
-  def find(latitude, longitude)
+  def find(postcode)
     practices
-      .sort_by { |practice| practice.distance_from(latitude, longitude) }
+      .sort_by { |practice| practice.distance_from(postcode) }
       .take(max_results)
-      .map { |practice| format_result(practice, latitude, longitude) }
+      .map { |practice| format_result(practice, postcode) }
   end
 
 private
   attr_reader :practices, :max_results
 
-  def format_result(practice, latitude, longitude)
+  def format_result(practice, postcode)
+    address = practice.data.fetch(:location).fetch(:address)
+
     {
       code: practice.data.fetch(:code),
       name: {
@@ -27,12 +29,12 @@ private
         matches: [],
       },
       address: {
-        value: practice.data.fetch(:location).fetch(:address),
-        matches: [],
+        value: address,
+        matches: substring_indices(address, postcode.postcode),
       },
       practitioners: [],
       score: {
-        distance: practice.distance_from(latitude, longitude).to_miles.round(1),
+        distance: practice.distance_from(postcode).to_miles.round(1),
       },
     }
   end
@@ -58,19 +60,18 @@ private
       latitude && longitude
     end
 
-    def distance_from(other_latitude, other_longitude)
-      Haversine.distance(latitude.to_f, longitude.to_f, other_latitude, other_longitude)
-    rescue
-      puts data.inspect
-      raise
+    def distance_from(postcode)
+      Haversine.distance(
+        latitude.to_f,
+        longitude.to_f,
+        postcode.latitude,
+        postcode.longitude,
+      )
     end
 
   private
     def latitude
       data.fetch(:location).fetch(:latitude, nil)
-    rescue
-      puts data.inspect
-      raise
     end
 
     def longitude

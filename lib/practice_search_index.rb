@@ -23,7 +23,7 @@ class PracticeSearchIndex
     postcode = postcodes.lookup(search_term)
 
     if postcode
-      location_search_index.find(postcode.latitude, postcode.longitude)
+      location_search_index.find(postcode)
     else
       fuzzy_search_index.find(search_term)
     end
