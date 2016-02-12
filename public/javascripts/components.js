@@ -142,11 +142,21 @@ var PracticeResult = React.createClass({
     }).bind(this)),
         href = "/book/" + this.props.practice.code;
 
+    if (this.props.practice.score.distance) {
+      var distance = React.createElement(
+        "p",
+        { className: "distance" },
+        this.props.practice.score.distance,
+        " miles away"
+      );
+    }
+
     return React.createElement(
       "a",
       { href: href, className: "result" },
       React.createElement("h2", { dangerouslySetInnerHTML: this.highlightText(this.props.practice.name.value, this.props.practice.name.matches) }),
       React.createElement("p", { className: "address", dangerouslySetInnerHTML: this.highlightText(this.props.practice.address.value, this.props.practice.address.matches) }),
+      distance,
       practitioners
     );
   },

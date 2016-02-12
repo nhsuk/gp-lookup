@@ -1,8 +1,8 @@
-require "practice_search_index"
+require "fuzzy_search_index"
 
-RSpec.describe(PracticeSearchIndex, "#find") do
+RSpec.describe(FuzzySearchIndex, "#find") do
   subject(:index) {
-    PracticeSearchIndex.new(
+    FuzzySearchIndex.new(
       practices: practices,
       max_results: 10,
     )
