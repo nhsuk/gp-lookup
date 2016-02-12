@@ -20,8 +20,16 @@ RSpec.describe(PracticeDataTransformer, "#call") do
     {
       organisation_code: puddleton_organisation_code,
       name: puddleton_name,
-      address: puddleton_address,
+      location: puddleton_location,
       contact_telephone_number: puddleton_phone_number,
+    }
+  }
+
+  let(:puddleton_location) {
+    {
+      address: puddleton_address,
+      latitude: puddleton_latitude,
+      longitude: puddleton_longitude,
     }
   }
 
@@ -29,14 +37,22 @@ RSpec.describe(PracticeDataTransformer, "#call") do
     {
       organisation_code: lakeside_organisation_code,
       name: lakeside_name,
-      address: lakeside_address,
+      location: lakeside_location,
       contact_telephone_number: lakeside_phone_number,
+    }
+  }
+
+  let(:lakeside_location) {
+    {
+      address: lakeside_address,
     }
   }
 
   let(:puddleton_organisation_code) { "H81600" }
   let(:puddleton_name) { double }
   let(:puddleton_address) { double }
+  let(:puddleton_latitude) { double }
+  let(:puddleton_longitude) { double }
   let(:puddleton_phone_number) { double }
 
   let(:lakeside_organisation_code) { "L84040" }
@@ -77,13 +93,13 @@ RSpec.describe(PracticeDataTransformer, "#call") do
       {
         code: puddleton_organisation_code,
         name: puddleton_name,
-        address: puddleton_address,
+        location: puddleton_location,
         practitioners: [],
       },
       {
         code: lakeside_organisation_code,
         name: lakeside_name,
-        address: lakeside_address,
+        location: lakeside_location,
         practitioners: [],
       },
     ])
@@ -103,7 +119,7 @@ RSpec.describe(PracticeDataTransformer, "#call") do
         {
           code: puddleton_organisation_code,
           name: puddleton_name,
-          address: puddleton_address,
+          location: puddleton_location,
           practitioners: [
             dr_abacus_name,
             dr_butter_name,
@@ -112,7 +128,7 @@ RSpec.describe(PracticeDataTransformer, "#call") do
         {
           code: lakeside_organisation_code,
           name: lakeside_name,
-          address: lakeside_address,
+          location: lakeside_location,
           practitioners: [
             dr_calais_name,
           ],
@@ -141,7 +157,7 @@ RSpec.describe(PracticeDataTransformer, "#call") do
         {
           code: lakeside_organisation_code,
           name: lakeside_name,
-          address: lakeside_address,
+          location: lakeside_location,
           practitioners: [
             dr_calais_name,
           ],

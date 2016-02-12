@@ -116,10 +116,17 @@ var PracticeResult = React.createClass({
         }.bind(this)),
         href = "/book/" + this.props.practice.code;
 
+    if (this.props.practice.score.distance) {
+      var distance = (
+        <p className="distance">{this.props.practice.score.distance} miles away</p>
+      );
+    }
+
     return (
       <a href={href} className="result">
         <h2 dangerouslySetInnerHTML={this.highlightText(this.props.practice.name.value, this.props.practice.name.matches)} />
         <p className="address" dangerouslySetInnerHTML={this.highlightText(this.props.practice.address.value, this.props.practice.address.matches)} />
+        {distance}
         {practitioners}
       </a>
     );
