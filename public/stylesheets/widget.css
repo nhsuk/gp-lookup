@@ -108,6 +108,11 @@ button:focus {
     .gp-finder-results p {
       margin: 12px 0;
       font-size: 18px; } }
+.gp-finder-results .distance {
+  font-size: 14px; }
+  @media (min-width: 769px) {
+    .gp-finder-results .distance {
+      font-size: 16px; } }
 .gp-finder-results .person {
   position: relative;
   left: 6px;
