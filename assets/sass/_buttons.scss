@@ -1,0 +1,36 @@
+// Buttons
+// ==========================================================================
+
+.button {
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 48px;
+  padding: 0 18px;
+  border: 0;
+  text-align: center;
+  color: $white;
+  background-color: $green;
+  cursor: pointer;
+  border: 2px solid $dark-green;
+  border-radius: 0;
+  -webkit-appearance: none;
+
+  &:link,
+  &:hover,
+  &:focus,
+  &:visited {
+    text-decoration: none;
+    color: $white;
+    background-color: $green;
+  }
+
+  @include media(large) {
+    width: auto;
+  }
+}
+
+// Fix unwanted button padding in Firefox
+.button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}

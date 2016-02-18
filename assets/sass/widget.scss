@@ -1,6 +1,7 @@
 @import "colours";
 @import "media-queries";
 @import "colour-tint-and-shade";
+@import "buttons";
 
 .clearfix {
   zoom: 1;
@@ -237,13 +238,22 @@ button:focus {
     margin-top: 0;
   }
 
-  a {
-    font-size: 92px;
-    line-height: 0.8;
-    font-weight: 700;
-    letter-spacing: -2px;
+  a.button {
+    font-size: 23px;
+  }
+
+  a[href*='tel:'] {
+    white-space: nowrap;
+    display: block;
+    margin: 18px 0 9px 0;
+    font-size: 36px;
+    line-height: 0.75;
     text-decoration: none;
     color: $blue;
+    font-weight: 700;
+    @include media(large) {
+      font-size: 52px;
+    }
   }
 }
 

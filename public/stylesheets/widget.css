@@ -1,3 +1,28 @@
+.button {
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 48px;
+  padding: 0 18px;
+  border: 0;
+  text-align: center;
+  color: #ffffff;
+  background-color: #00953A;
+  cursor: pointer;
+  border: 2px solid #006647;
+  border-radius: 0;
+  -webkit-appearance: none; }
+  .button:link, .button:hover, .button:focus, .button:visited {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #00953A; }
+  @media (min-width: 769px) {
+    .button {
+      width: auto; } }
+
+.button::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
 .clearfix {
   zoom: 1; }
   .clearfix:after {
@@ -160,13 +185,20 @@ button:focus {
   background-color: rgba(0, 114, 198, 0.1); }
   .call-to-action-section h3 {
     margin-top: 0; }
-  .call-to-action-section a {
-    font-size: 92px;
-    line-height: 0.8;
-    font-weight: 700;
-    letter-spacing: -2px;
+  .call-to-action-section a.button {
+    font-size: 23px; }
+  .call-to-action-section a[href*='tel:'] {
+    white-space: nowrap;
+    display: block;
+    margin: 18px 0 9px 0;
+    font-size: 36px;
+    line-height: 0.75;
     text-decoration: none;
-    color: #0072C6; }
+    color: #0072C6;
+    font-weight: 700; }
+    @media (min-width: 769px) {
+      .call-to-action-section a[href*='tel:'] {
+        font-size: 52px; } }
 
 .smallprint {
   font-size: 15px;
