@@ -32,10 +32,14 @@ def practices_matching(search_term)
 end
 
 def find_practice(organisation_code)
+  practice = PRACTICES.find { |practice|
+    practice.fetch(:organisation_code) == organisation_code
+  }
+
   OpenStruct.new(
-    PRACTICES.find { |practice|
-      practice.fetch(:organisation_code) == organisation_code
-    }
+    name: practice.fetch(:name),
+    address: practice.fetch(:location).fetch(:address),
+    contact_telephone_number: practice.fetch(:contact_telephone_number),
   )
 end
 
