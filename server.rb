@@ -5,6 +5,9 @@ require "./lib/practice_search_index"
 require "./lib/practice_data_transformer"
 require "./lib/react/exec_js_renderer"
 
+GOOGLE_ANALYTICS_TRACKING_ID = ENV.fetch("GOOGLE_ANALYTICS_TRACKING_ID", nil)
+MOUSE_STATS_ACCOUNT_ID = ENV.fetch("MOUSE_STATS_ACCOUNT_ID", nil)
+
 PRACTICES = JSON.parse(
   File.read("data/general-medical-practices.json"),
   symbolize_names: true,
