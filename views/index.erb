@@ -110,5 +110,13 @@
 <script src="javascripts/lookup.js"></script>
 <script type="text/javascript" src="/javascripts/cookies.js"></script>
 
+<% if GOOGLE_ANALYTICS_TRACKING_ID %>
+  <%= erb :google_analytics %>
+<% end %>
+
+<% if MOUSE_STATS_ACCOUNT_ID %>
+  <%= erb :mouse_stats_analytics %>
+<% end %>
+
 </body>
 </html>
