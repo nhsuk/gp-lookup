@@ -147,6 +147,11 @@ private
       }
     }
 
+    address = "%{address}, %{postcode}" % {
+      address: practice.fetch(:location).fetch(:address),
+      postcode: practice.fetch(:location).fetch(:postcode),
+    }
+
     {
       code: practice.fetch(:code),
       name: {
@@ -154,7 +159,7 @@ private
         matches: name_result.fetch(:matches),
       },
       address: {
-        value: practice.fetch(:location).fetch(:address),
+        value: address,
         matches: address_result.fetch(:matches),
       },
       practitioners: practitioners_list,
