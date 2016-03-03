@@ -28,6 +28,7 @@ RSpec.describe(PracticeDataTransformer, "#call") do
   let(:puddleton_location) {
     {
       address: puddleton_address,
+      postcode: puddleton_postcode,
       latitude: puddleton_latitude,
       longitude: puddleton_longitude,
     }
@@ -45,12 +46,14 @@ RSpec.describe(PracticeDataTransformer, "#call") do
   let(:lakeside_location) {
     {
       address: lakeside_address,
+      postcode: lakeside_postcode,
     }
   }
 
   let(:puddleton_organisation_code) { "H81600" }
   let(:puddleton_name) { double }
   let(:puddleton_address) { double }
+  let(:puddleton_postcode) { double }
   let(:puddleton_latitude) { double }
   let(:puddleton_longitude) { double }
   let(:puddleton_phone_number) { double }
@@ -58,6 +61,7 @@ RSpec.describe(PracticeDataTransformer, "#call") do
   let(:lakeside_organisation_code) { "L84040" }
   let(:lakeside_name) { double }
   let(:lakeside_address) { double }
+  let(:lakeside_postcode) { double }
   let(:lakeside_phone_number) { double }
 
   let(:dr_abacus) {

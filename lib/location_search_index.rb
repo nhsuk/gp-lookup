@@ -20,7 +20,10 @@ private
   attr_reader :practices, :max_results
 
   def format_result(practice, postcode)
-    address = practice.data.fetch(:location).fetch(:address)
+    address = "%{address}, %{postcode}" % {
+      address: practice.data.fetch(:location).fetch(:address),
+      postcode: practice.data.fetch(:location).fetch(:postcode),
+    }
 
     {
       code: practice.data.fetch(:code),
