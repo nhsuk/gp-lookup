@@ -30,7 +30,7 @@ class FuzzySearchIndex
         {
           property: :name,
           value: name,
-          matches: substring_indices(name, search_term),
+          matches: trigram_matches(name, search_term),
           score: matches,
         }
       )
@@ -44,7 +44,7 @@ class FuzzySearchIndex
         {
           property: :address,
           value: address,
-          matches: substring_indices(address, search_term),
+          matches: trigram_matches(address, search_term),
           score: matches,
         }
       )
@@ -59,7 +59,7 @@ class FuzzySearchIndex
         {
           property: :practitioners,
           value: name,
-          matches: substring_indices(name, search_term),
+          matches: trigram_matches(name, search_term),
           score: matches,
         }
       )
@@ -107,14 +107,23 @@ private
     end
   end
 
-  def substring_indices(string, substring)
-    string
-      .downcase
-      .each_char
-      .each_cons(substring.length)
+  def trigram_matches(term, query)
+    # break both term and query into trigrams
+    haystack = term.downcase.each_char.each_cons(3)
+    needles = query.downcase.each_char.each_cons(3)
+
+    # find all the places where the term matches the query
+    indices = haystack
       .with_index
-      .select { |chars, _index| chars.join == substring.downcase }
-      .map { |_chars, index| [index, index + substring.length - 1] }
+      .select { |trigram, _index| needles.include?(trigram) }
+      .flat_map { |_trigram, index| [ index, index + 1, index + 2 ] }
+      .sort
+      .uniq
+
+    # turn it into [start, end] pairs
+    indices
+      .slice_when { |a, b| a + 1 != b }
+      .map { |list| [ list.first, list.last ] }
   end
 
   def format_practice_result(practice, results)
