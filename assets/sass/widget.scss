@@ -40,17 +40,24 @@ button:focus {
 .gp-finder-search {
 
   padding: 9px 0;
-  background-color: rgba($blue, 0.1);
+  background-color: #EFF5FD;
+  //background-color: rgba($blue, 0.09);
 
   @include media(large) {
     padding: 18px 0;
   }
 
+  h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: inherit;
+    color: $blue;
+  }
+
   label {
     display: block;
     padding-left: 5px;
-    font-size: 26px;
-    color: $blue;
   }
 
   .hint {

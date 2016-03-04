@@ -80,10 +80,14 @@ var SearchForm = React.createClass({
         "div",
         { className: "block-container" },
         React.createElement(
-          "label",
-          { htmlFor: "search" },
-          "Find your GP practice",
-          hintSpan
+          "h1",
+          null,
+          React.createElement(
+            "label",
+            { htmlFor: "search" },
+            "Find your GP practice",
+            hintSpan
+          )
         ),
         React.createElement(
           "div",
@@ -120,7 +124,7 @@ var ResultsList = React.createClass({
       { className: "block-container" },
       React.createElement(
         "div",
-        { className: "gp-finder-results" },
+        { className: "gp-finder-results", "aria-live": "polite" },
         practiceResults
       )
     );
