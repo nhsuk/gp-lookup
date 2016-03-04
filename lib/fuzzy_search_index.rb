@@ -1,7 +1,7 @@
 require "blurrily/map"
 
 class FuzzySearchIndex
-  def initialize(practices:, max_results: 10)
+  def initialize(practices:)
     @practices = practices
     @practitioners = practices.flat_map.with_index { |practice, practice_index|
       practice.fetch(:practitioners).map { |practitioner|
@@ -12,12 +12,10 @@ class FuzzySearchIndex
       }
     }
 
-    @max_results = max_results
-
     build_haystacks
   end
 
-  def find(search_term)
+  def find(search_term, max_results: 10)
     practice_results = Hash.new { |hash, index|
       hash[index] = []
     }
@@ -84,7 +82,6 @@ private
   attr_reader(
     :practices,
     :practitioners,
-    :max_results,
     :names_haystack,
     :addresses_haystack,
     :practitioners_haystack,

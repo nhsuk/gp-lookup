@@ -20,7 +20,6 @@ SEARCH_INDEX = PracticeSearchIndex.new(
     practices: PRACTICES,
     practitioners: PRACTITIONERS,
   ).call,
-  max_results: 20,
 )
 
 def all_practices
@@ -28,7 +27,7 @@ def all_practices
 end
 
 def practices_matching(search_term)
-  SEARCH_INDEX.find(search_term.downcase)
+  SEARCH_INDEX.find(search_term.downcase, max_results: 20)
 end
 
 def find_practice(organisation_code)

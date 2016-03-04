@@ -7,15 +7,13 @@ require "./lib/outcodes_search_index"
 require "./lib/postcode_lookup.rb"
 
 class PracticeSearchIndex
-  def initialize(practices:, max_results: 10)
+  def initialize(practices:)
     @fuzzy_search_index = FuzzySearchIndex.new(
       practices: practices,
-      max_results: max_results,
     )
 
     @location_search_index = LocationSearchIndex.new(
       practices: practices,
-      max_results: max_results,
     )
 
     @outcodes_search_index = OutcodesSearchIndex.new(
@@ -27,15 +25,15 @@ class PracticeSearchIndex
     )
   end
 
-  def find(search_term)
+  def find(search_term, max_results: 10)
     postcode = postcodes.find(search_term)
 
     if postcode.postcode?
-      location_search_index.find(postcode)
+      location_search_index.find(postcode, max_results: max_results)
     elsif postcode.outcode?
       outcodes_search_index.find(postcode.outcode)
     else
-      fuzzy_search_index.find(search_term)
+      fuzzy_search_index.find(search_term, max_results: max_results)
     end
   end
 
