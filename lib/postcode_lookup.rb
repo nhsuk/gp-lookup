@@ -17,19 +17,31 @@ private
   attr_reader :http_client
 
   def find_postcode(code)
-    endpoint = "/postcodes/%{code}" % {
-      code: code.gsub(/\s/, "")
-    }
+    postcode = code.gsub(/\s/, "")
+    return NullResponse.new unless postcodeish?(postcode)
 
-    http_client.get(endpoint)
+    http_client.get("/postcodes/#{postcode}")
   end
 
   def find_outcode(code)
-    endpoint = "/outcodes/%{code}" % {
-      code: code.lstrip.split(/\s/).first
-    }
+    outcode = code.lstrip.split(/\s/).first
+    return NullResponse.new unless outcodeish?(outcode)
 
-    http_client.get(endpoint)
+    http_client.get("/outcodes/#{outcode}")
+  end
+
+  def postcodeish?(code)
+    code =~ /^[a-z]{1,2}[0-9]{1,2}[a-z]?[0-9][a-z]{2}$/i
+  end
+
+  def outcodeish?(code)
+    code =~ /^[a-z]{1,2}[0-9]{1,2}[a-z]?$/i
+  end
+
+  class NullResponse
+    def success?
+      false
+    end
   end
 
   class NullPostcode
