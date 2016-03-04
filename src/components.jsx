@@ -30,7 +30,7 @@ var Application = React.createClass({
       searchText: newSearchText
     });
 
-    if(newSearchText.length >= 3) {
+    if(newSearchText.length > 0) {
       search(newSearchText).then(function(practices) {
         console.log('Updating practices: ', practices);
         this.setState({
