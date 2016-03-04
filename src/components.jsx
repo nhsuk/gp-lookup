@@ -62,10 +62,12 @@ var SearchForm = React.createClass({
     return (
       <form name="" id="" action="" method="get" className="gp-finder-search">
         <div className="block-container">
-          <label htmlFor="search">
-            Find your GP practice
-            {hintSpan}
-          </label>
+          <h1>
+            <label htmlFor="search">
+              Find your GP practice
+              {hintSpan}
+            </label>
+          </h1>
           <div className="clearfix">
             <input type="text" name="search" id="search" className="form-control"
                    value={this.props.searchText}

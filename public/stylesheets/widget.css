@@ -28,11 +28,15 @@ button:focus {
   @media (min-width: 769px) {
     .gp-finder-search {
       padding: 18px 0; } }
+  .gp-finder-search h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: inherit;
+    color: #0072C6; }
   .gp-finder-search label {
     display: block;
-    padding-left: 5px;
-    font-size: 26px;
-    color: #0072C6; }
+    padding-left: 5px; }
   .gp-finder-search .hint {
     display: block;
     margin-top: 6px;
