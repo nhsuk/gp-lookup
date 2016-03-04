@@ -93,7 +93,7 @@ var ResultsList = React.createClass({
     return (
       <div className="block-container">
 
-        <div className="gp-finder-results">
+        <div className="gp-finder-results" aria-live="polite">
 
           {practiceResults}
 

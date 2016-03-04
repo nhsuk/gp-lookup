@@ -120,7 +120,7 @@ var ResultsList = React.createClass({
       { className: "block-container" },
       React.createElement(
         "div",
-        { className: "gp-finder-results" },
+        { className: "gp-finder-results", "aria-live": "polite" },
         practiceResults
       )
     );
