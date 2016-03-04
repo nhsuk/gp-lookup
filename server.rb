@@ -42,11 +42,12 @@ end
 
 get '/' do
   search_term = params.fetch("search", "")
+  max_results = Integer(params.fetch("max")) rescue DEFAULT_MAX_RESULTS
 
   practices = if search_term.empty?
     nil
   else
-    practices_matching(search_term, max_results: DEFAULT_MAX_RESULTS)
+    practices_matching(search_term, max_results: max_results)
   end
 
   erb :index, locals: {
@@ -57,11 +58,12 @@ end
 
 get "/practices" do
   search_term = params.fetch("search", "")
+  max_results = Integer(params.fetch("max")) rescue DEFAULT_MAX_RESULTS
 
   practices = if search_term.empty?
     all_practices
   else
-    practices_matching(search_term, max_results: DEFAULT_MAX_RESULTS)
+    practices_matching(search_term, max_results: max_results)
   end
 
   content_type :json
