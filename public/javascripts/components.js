@@ -193,26 +193,21 @@ var ResultsFooter = React.createClass({
 
   render: function render() {
     return React.createElement(
-      "footer",
-      null,
+      "div",
+      { className: "gp-finder-foot" },
       React.createElement(
         "p",
         null,
-        "Looks like you got to the end. You can ",
         React.createElement(
           "a",
-          {
-            href: this.props.loadMoreHref, onClick: this.onClick },
-          "load more results"
-        ),
-        ", or you can ",
-        React.createElement(
-          "label",
-          { htmlFor: "search", style: { color: "blue",
-              textDecoration: "underline" } },
-          "try searching again"
-        ),
-        ". You can search for any of:"
+          { href: this.props.loadMoreHref, onClick: this.onClick },
+          "Show more GP practices."
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        "Or try searching again. You can search using:"
       ),
       React.createElement(
         "ul",
@@ -236,6 +231,15 @@ var ResultsFooter = React.createClass({
           "li",
           null,
           "doctor’s name"
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(
+          "a",
+          { href: "#" },
+          "Search again"
         )
       )
     );

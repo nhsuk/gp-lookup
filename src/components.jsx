@@ -170,20 +170,23 @@ var PracticeResult = React.createClass({
 var ResultsFooter = React.createClass({
   render: function() {
     return (
-      <footer>
-        <p>Looks like you got to the end. You can <a
-        href={this.props.loadMoreHref} onClick={this.onClick}>load more
-        results</a>, or you can <label htmlFor="search" style={{color: "blue",
-        textDecoration: "underline"}}>try searching again</label>. You can
-        search for any of:</p>
-
+      <div className="gp-finder-foot">
+        <p>
+          <a href={this.props.loadMoreHref} onClick={this.onClick}>Show more GP practices.</a>
+        </p>
+        <p>
+          Or try searching again. You can search using:
+        </p>
         <ul>
           <li>practice name</li>
           <li>practice address</li>
           <li>postcode</li>
           <li>doctor’s name</li>
         </ul>
-      </footer>
+        <p>
+          <a href="#">Search again</a>
+        </p>
+      </div>
     );
   },
 
