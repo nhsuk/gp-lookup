@@ -21,7 +21,6 @@ var Application = React.createClass({
       "div",
       null,
       React.createElement(SearchForm, { searchText: this.state.searchText,
-        numberOfResults: numberOfResults,
         handleSearchTextChange: this.handleSearchTextChange }),
       resultsList
     );
@@ -51,27 +50,6 @@ var SearchForm = React.createClass({
   displayName: "SearchForm",
 
   render: function render() {
-    var hintSpan;
-
-    if (null !== this.props.numberOfResults) {
-      hintSpan = React.createElement(
-        "span",
-        { className: "hint" },
-        this.props.numberOfResults,
-        " results found for ",
-        React.createElement(
-          "span",
-          { className: "visuallyhidden" },
-          this.props.searchText
-        )
-      );
-    } else {
-      hintSpan = React.createElement(
-        "span",
-        { className: "hint" },
-        "Practice name, address, GP name, postcode, etc."
-      );
-    }
 
     return React.createElement(
       "form",
@@ -85,8 +63,7 @@ var SearchForm = React.createClass({
           React.createElement(
             "label",
             { htmlFor: "search" },
-            "Find your GP practice",
-            hintSpan
+            "Find your GP practice"
           )
         ),
         React.createElement(
