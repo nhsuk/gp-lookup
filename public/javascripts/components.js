@@ -19,6 +19,8 @@ var Application = React.createClass({
       resultsList = React.createElement(ResultsList, { practices: this.state.results,
         loadMoreResults: this.loadMoreResults,
         loadMoreHref: this.loadMoreHref() });
+    } else {
+      resultsList = React.createElement(NoResults, null);
     }
     return React.createElement(
       "div",
@@ -252,5 +254,59 @@ var ResultsFooter = React.createClass({
     this.props.loadMoreResults();
 
     return false;
+  }
+});
+
+var NoResults = React.createClass({
+  displayName: "NoResults",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "block-container" },
+      React.createElement(
+        "div",
+        { className: "gp-finder-no-results" },
+        React.createElement(
+          "p",
+          null,
+          "Sorry, no practices have been found. ",
+          React.createElement(
+            "a",
+            { href: "#search" },
+            "Try searching again."
+          )
+        ),
+        React.createElement(
+          "p",
+          null,
+          "You can search using:"
+        ),
+        React.createElement(
+          "ul",
+          null,
+          React.createElement(
+            "li",
+            null,
+            "practice name"
+          ),
+          React.createElement(
+            "li",
+            null,
+            "practice address"
+          ),
+          React.createElement(
+            "li",
+            null,
+            "postcode"
+          ),
+          React.createElement(
+            "li",
+            null,
+            "doctor’s name"
+          )
+        )
+      )
+    );
   }
 });

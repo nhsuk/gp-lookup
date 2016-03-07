@@ -19,6 +19,8 @@ var Application = React.createClass({
                      loadMoreResults={this.loadMoreResults}
                      loadMoreHref={this.loadMoreHref()} />
       );
+    } else {
+      resultsList = (<NoResults />);
     }
     return (
       <div>
@@ -167,6 +169,7 @@ var PracticeResult = React.createClass({
 
 });
 
+
 var ResultsFooter = React.createClass({
   render: function() {
     return (
@@ -197,5 +200,29 @@ var ResultsFooter = React.createClass({
     this.props.loadMoreResults();
 
     return false;
+  }
+});
+
+
+var NoResults = React.createClass({
+  render: function() {
+    return (
+      <div className="block-container">
+        <div className="gp-finder-no-results">
+          <p>
+            Sorry, no practices have been found. <a href="#search">Try searching again.</a>
+          </p>
+          <p>
+            You can search using:
+          </p>
+          <ul>
+            <li>practice name</li>
+            <li>practice address</li>
+            <li>postcode</li>
+            <li>doctor’s name</li>
+          </ul>
+        </div>
+      </div>
+    );
   }
 });
