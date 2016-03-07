@@ -238,7 +238,7 @@ var ResultsFooter = React.createClass({
         null,
         React.createElement(
           "a",
-          { href: "#" },
+          { href: "#search" },
           "Search again"
         )
       )

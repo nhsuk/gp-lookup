@@ -184,7 +184,7 @@ var ResultsFooter = React.createClass({
           <li>doctor’s name</li>
         </ul>
         <p>
-          <a href="#">Search again</a>
+          <a href="#search">Search again</a>
         </p>
       </div>
     );
