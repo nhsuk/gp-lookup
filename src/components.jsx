@@ -18,7 +18,6 @@ var Application = React.createClass({
     return (
       <div>
         <SearchForm searchText={this.state.searchText}
-                    numberOfResults={numberOfResults}
                     handleSearchTextChange={this.handleSearchTextChange} />
        {resultsList}
       </div>
@@ -47,17 +46,6 @@ var Application = React.createClass({
 
 var SearchForm = React.createClass({
   render: function() {
-    var hintSpan;
-
-    if(null !== this.props.numberOfResults) {
-      hintSpan = (
-        <span className="hint">{this.props.numberOfResults} results found for <span className="visuallyhidden">{this.props.searchText}</span></span>
-      );
-    } else {
-      hintSpan = (
-        <span className="hint">Practice name, address, GP name, postcode, etc.</span>
-      );
-    }
 
     return (
       <form name="" id="" action="" method="get" className="gp-finder-search">
@@ -65,7 +53,6 @@ var SearchForm = React.createClass({
           <h1>
             <label htmlFor="search">
               Find your GP practice
-              {hintSpan}
             </label>
           </h1>
           <div className="clearfix">

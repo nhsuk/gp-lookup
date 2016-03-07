@@ -37,13 +37,6 @@ button:focus {
   .gp-finder-search label {
     display: block;
     padding-left: 5px; }
-  .gp-finder-search .hint {
-    display: block;
-    margin-top: 6px;
-    font-size: 16px; }
-    @media (min-width: 769px) {
-      .gp-finder-search .hint {
-        font-size: 18px; } }
   .gp-finder-search input[type="text"] {
     float: left;
     box-sizing: border-box;
@@ -71,7 +64,7 @@ button:focus {
     border: 0;
     cursor: pointer; }
   .gp-finder-search .clearfix {
-    padding: 12px 0 0 0; }
+    padding: 18px 0 0 0; }
 
 @media (min-width: 769px) {
   .gp-finder-results {
