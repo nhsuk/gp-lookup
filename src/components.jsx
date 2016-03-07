@@ -4,7 +4,8 @@ var Application = React.createClass({
   getInitialState: function() {
     return {
       searchText: this.props.initialSearchText,
-      results: this.props.initialResults
+      results: this.props.initialResults,
+      maxResults: 20
     };
   },
 
@@ -13,25 +14,44 @@ var Application = React.createClass({
         resultsList = null;
 
     if(numberOfResults) {
-      resultsList = (<ResultsList practices={this.state.results} />);
+      resultsList = (
+        <ResultsList practices={this.state.results}
+                     loadMoreResults={this.loadMoreResults}
+                     loadMoreHref={this.loadMoreHref()} />
+      );
     }
     return (
       <div>
         <SearchForm searchText={this.state.searchText}
                     handleSearchTextChange={this.handleSearchTextChange} />
-       {resultsList}
+        {resultsList}
       </div>
     );
   },
 
   handleSearchTextChange: function(newSearchText) {
+    this.updateResults(newSearchText, 20);
+  },
+
+  loadMoreResults: function() {
+    this.updateResults(this.state.searchText, this.state.maxResults + 20);
+  },
+
+  loadMoreHref: function() {
+    var searchText = this.state.searchText.replace(" ", "+", "g"),
+        maxResults = this.state.maxResults + 20;
+
+    return "?search=" + searchText + "&max=" + maxResults;
+  },
+
+  updateResults: function(searchText, maxResults) {
     this.setState({
-      searchText: newSearchText
+      searchText: searchText,
+      maxResults: maxResults
     });
 
-    if(newSearchText.length > 0) {
-      search(newSearchText).then(function(practices) {
-        console.log('Updating practices: ', practices);
+    if (searchText.length > 0) {
+      search(searchText, maxResults).then(function(practices) {
         this.setState({
           results: practices
         });
@@ -81,12 +101,12 @@ var ResultsList = React.createClass({
 
     return (
       <div className="block-container">
-
         <div className="gp-finder-results" aria-live="polite">
-
           {practiceResults}
-
         </div>
+
+        <ResultsFooter loadMoreResults={this.props.loadMoreResults}
+                       loadMoreHref={this.props.loadMoreHref} />
       </div>
     );
   }
@@ -145,4 +165,34 @@ var PracticeResult = React.createClass({
     return {__html: output};
   }
 
+});
+
+var ResultsFooter = React.createClass({
+  render: function() {
+    return (
+      <footer>
+        <p>Looks like you got to the end. You can <a
+        href={this.props.loadMoreHref} onClick={this.onClick}>load more
+        results</a>, or you can <label htmlFor="search" style={{color: "blue",
+        textDecoration: "underline"}}>try searching again</label>. You can
+        search for any of:</p>
+
+        <ul>
+          <li>practice name</li>
+          <li>practice address</li>
+          <li>postcode</li>
+          <li>doctor’s name</li>
+        </ul>
+      </footer>
+    );
+  },
+
+  onClick: function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.props.loadMoreResults();
+
+    return false;
+  }
 });

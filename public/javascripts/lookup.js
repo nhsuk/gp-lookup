@@ -25,12 +25,11 @@ attachReactComponents();
 
 var currentAjaxRequest = null;
 
-function search(text) {
-
+function search(text, maxResults) {
   if(null !== currentAjaxRequest) {
     currentAjaxRequest.abort();
   }
 
-  currentAjaxRequest = $.get('/practices', {search: text});
+  currentAjaxRequest = $.get('/practices', {search: text, max: maxResults});
   return currentAjaxRequest;
 }
