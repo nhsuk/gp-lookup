@@ -16,51 +16,62 @@ class FuzzySearchIndex
   end
 
   def find(search_term, max_results: 10)
-    practice_results = Hash.new { |hash, index|
-      hash[index] = []
-    }
-
-    names_haystack.find(search_term, max_results).each do |index, matches, _weight|
-      result = practice_results[index]
+    name_results = names_haystack.find(search_term, max_results).map { |index, matches, _weight|
       name = practices.fetch(index).fetch(:name)
 
-      result.push(
+      [
+        index,
         {
           property: :name,
           value: name,
           matches: trigram_matches(name, search_term),
           score: matches,
-        }
-      )
-    end
+        },
+      ]
+    }
 
-    addresses_haystack.find(search_term, max_results).each do |index, matches, _weight|
-      result = practice_results[index]
+    address_results = addresses_haystack.find(search_term, max_results).map { |index, matches, _weight|
       address = practices.fetch(index).fetch(:location).fetch(:address)
 
-      result.push(
+      [
+        index,
         {
           property: :address,
           value: address,
           matches: trigram_matches(address, search_term),
           score: matches,
-        }
-      )
-    end
+        },
+      ]
+    }
 
-    practitioners_haystack.find(search_term, max_results).each do |index, matches, _weight|
+    practitioner_results = practitioners_haystack.find(search_term, max_results).map { |index, matches, _weight|
       practitioner = practitioners.fetch(index)
       name = practitioner.fetch(:name)
-      result = practice_results[practitioner.fetch(:practice_index)]
 
-      result.push(
+      [
+        practitioner.fetch(:practice_index),
         {
           property: :practitioners,
           value: name,
           matches: trigram_matches(name, search_term),
           score: matches,
-        }
-      )
+        },
+      ]
+    }
+
+    practice_results = Hash.new { |hash, index|
+      hash[index] = []
+    }
+
+    # interleave results so we can get a stable order from sorting
+    all_results = name_results
+      .zip(address_results, practitioner_results)
+      .flatten(1)
+      .compact
+
+    all_results.each do |(index, match)|
+      result = practice_results[index]
+      result.push(match)
     end
 
     practice_results.map { |(index, results)|
@@ -68,14 +79,15 @@ class FuzzySearchIndex
         practices.fetch(index),
         results,
       )
-    }.sort_by { |result|
-      scores = result.fetch(:score).values
+    }.each.with_index.sort_by { |(result, i)|
+      scores = result.fetch(:score).values.map { |score| -score }
 
       [
-        scores.max,
+        scores.min,
         scores,
+        i,
       ]
-    }.reverse.take(max_results)
+    }.map(&:first).take(max_results)
   end
 
 private
