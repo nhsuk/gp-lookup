@@ -1,15 +1,13 @@
 require "haversine"
 
 class LocationSearchIndex
-  def initialize(practices:, max_results: 10)
+  def initialize(practices:)
     @practices = practices
       .map(&Practice.method(:new))
       .select(&:has_coordinates?)
-
-    @max_results = max_results
   end
 
-  def find(postcode)
+  def find(postcode, max_results: 10)
     practices
       .sort_by { |practice| practice.distance_from(postcode) }
       .take(max_results)
@@ -17,7 +15,7 @@ class LocationSearchIndex
   end
 
 private
-  attr_reader :practices, :max_results
+  attr_reader :practices
 
   def format_result(practice, postcode)
     address = "%{address}, %{postcode}" % {

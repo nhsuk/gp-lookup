@@ -20,15 +20,16 @@ SEARCH_INDEX = PracticeSearchIndex.new(
     practices: PRACTICES,
     practitioners: PRACTITIONERS,
   ).call,
-  max_results: 20,
 )
+
+DEFAULT_MAX_RESULTS = 20
 
 def all_practices
   PRACTICES
 end
 
-def practices_matching(search_term)
-  SEARCH_INDEX.find(search_term.downcase)
+def practices_matching(search_term, max_results: DEFAULT_MAX_RESULTS)
+  SEARCH_INDEX.find(search_term.downcase, max_results: max_results)
 end
 
 def find_practice(organisation_code)
@@ -41,7 +42,13 @@ end
 
 get '/' do
   search_term = params.fetch("search", "")
-  practices = search_term.empty? ? nil : practices_matching(search_term)
+  max_results = Integer(params.fetch("max")) rescue DEFAULT_MAX_RESULTS
+
+  practices = if search_term.empty?
+    nil
+  else
+    practices_matching(search_term, max_results: max_results)
+  end
 
   erb :index, locals: {
     search_term: search_term,
@@ -51,11 +58,12 @@ end
 
 get "/practices" do
   search_term = params.fetch("search", "")
+  max_results = Integer(params.fetch("max")) rescue DEFAULT_MAX_RESULTS
 
   practices = if search_term.empty?
     all_practices
   else
-    practices_matching(search_term)
+    practices_matching(search_term, max_results: max_results)
   end
 
   content_type :json

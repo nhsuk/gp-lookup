@@ -6,7 +6,8 @@ var Application = React.createClass({
   getInitialState: function getInitialState() {
     return {
       searchText: this.props.initialSearchText,
-      results: this.props.initialResults
+      results: this.props.initialResults,
+      maxResults: 20
     };
   },
 
@@ -15,7 +16,9 @@ var Application = React.createClass({
         resultsList = null;
 
     if (numberOfResults) {
-      resultsList = React.createElement(ResultsList, { practices: this.state.results });
+      resultsList = React.createElement(ResultsList, { practices: this.state.results,
+        loadMoreResults: this.loadMoreResults,
+        loadMoreHref: this.loadMoreHref() });
     }
     return React.createElement(
       "div",
@@ -27,13 +30,28 @@ var Application = React.createClass({
   },
 
   handleSearchTextChange: function handleSearchTextChange(newSearchText) {
+    this.updateResults(newSearchText, 20);
+  },
+
+  loadMoreResults: function loadMoreResults() {
+    this.updateResults(this.state.searchText, this.state.maxResults + 20);
+  },
+
+  loadMoreHref: function loadMoreHref() {
+    var searchText = this.state.searchText.replace(" ", "+", "g"),
+        maxResults = this.state.maxResults + 20;
+
+    return "?search=" + searchText + "&max=" + maxResults;
+  },
+
+  updateResults: function updateResults(searchText, maxResults) {
     this.setState({
-      searchText: newSearchText
+      searchText: searchText,
+      maxResults: maxResults
     });
 
-    if (newSearchText.length > 0) {
-      search(newSearchText).then((function (practices) {
-        console.log('Updating practices: ', practices);
+    if (searchText.length > 0) {
+      search(searchText, maxResults).then((function (practices) {
         this.setState({
           results: practices
         });
@@ -103,7 +121,9 @@ var ResultsList = React.createClass({
         "div",
         { className: "gp-finder-results", "aria-live": "polite" },
         practiceResults
-      )
+      ),
+      React.createElement(ResultsFooter, { loadMoreResults: this.props.loadMoreResults,
+        loadMoreHref: this.props.loadMoreHref })
     );
   }
 });
@@ -166,4 +186,71 @@ var PracticeResult = React.createClass({
     return { __html: output };
   }
 
+});
+
+var ResultsFooter = React.createClass({
+  displayName: "ResultsFooter",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "gp-finder-foot" },
+      React.createElement(
+        "p",
+        null,
+        React.createElement(
+          "a",
+          { href: this.props.loadMoreHref, onClick: this.onClick },
+          "Show more GP practices."
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        "Or try searching again. You can search using:"
+      ),
+      React.createElement(
+        "ul",
+        null,
+        React.createElement(
+          "li",
+          null,
+          "practice name"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "practice address"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "postcode"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "doctor’s name"
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(
+          "a",
+          { href: "#search" },
+          "Search again"
+        )
+      )
+    );
+  },
+
+  onClick: function onClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.props.loadMoreResults();
+
+    return false;
+  }
 });

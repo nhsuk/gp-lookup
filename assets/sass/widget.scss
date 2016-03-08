@@ -204,6 +204,21 @@ button:focus {
   }
 }
 
+.gp-finder-foot {
+  margin-top: 22px;
+  font-size: 16px;
+  @include media(large) {
+    max-width: 75%;
+  }
+
+  li {
+    margin-bottom: 4px;
+    @include media(large) {
+      margin-bottom: 8px;
+    }
+  }
+}
+
 //////////////
 
 // Book page elements
