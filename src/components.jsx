@@ -10,18 +10,24 @@ var Application = React.createClass({
   },
 
   render: function() {
-    var numberOfResults = this.state.results !== null ? this.state.results.length : null,
+    var numberOfResults = null,
         resultsList = null;
 
-    if(numberOfResults) {
+    if (this.state.results !== null) {
+      numberOfResults = this.state.results.length;
+    }
+
+    if (numberOfResults === 0) {
+      resultsList = (<NoResults />);
+    }
+    else if(numberOfResults) {
       resultsList = (
         <ResultsList practices={this.state.results}
                      loadMoreResults={this.loadMoreResults}
                      loadMoreHref={this.loadMoreHref()} />
       );
-    } else {
-      resultsList = (<NoResults />);
-    }
+    };
+
     return (
       <div>
         <SearchForm searchText={this.state.searchText}

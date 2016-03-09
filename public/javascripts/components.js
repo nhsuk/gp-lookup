@@ -12,16 +12,21 @@ var Application = React.createClass({
   },
 
   render: function render() {
-    var numberOfResults = this.state.results !== null ? this.state.results.length : null,
+    var numberOfResults = null,
         resultsList = null;
 
-    if (numberOfResults) {
+    if (this.state.results !== null) {
+      numberOfResults = this.state.results.length;
+    }
+
+    if (numberOfResults === 0) {
+      resultsList = React.createElement(NoResults, null);
+    } else if (numberOfResults) {
       resultsList = React.createElement(ResultsList, { practices: this.state.results,
         loadMoreResults: this.loadMoreResults,
         loadMoreHref: this.loadMoreHref() });
-    } else {
-      resultsList = React.createElement(NoResults, null);
-    }
+    };
+
     return React.createElement(
       "div",
       null,
