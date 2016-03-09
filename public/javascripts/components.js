@@ -12,14 +12,21 @@ var Application = React.createClass({
   },
 
   render: function render() {
-    var numberOfResults = this.state.results !== null ? this.state.results.length : null,
+    var numberOfResults = null,
         resultsList = null;
 
-    if (numberOfResults) {
+    if (this.state.results !== null) {
+      numberOfResults = this.state.results.length;
+    }
+
+    if (numberOfResults === 0) {
+      resultsList = React.createElement(NoResults, null);
+    } else if (numberOfResults) {
       resultsList = React.createElement(ResultsList, { practices: this.state.results,
         loadMoreResults: this.loadMoreResults,
         loadMoreHref: this.loadMoreHref() });
-    }
+    };
+
     return React.createElement(
       "div",
       null,
@@ -252,5 +259,59 @@ var ResultsFooter = React.createClass({
     this.props.loadMoreResults();
 
     return false;
+  }
+});
+
+var NoResults = React.createClass({
+  displayName: "NoResults",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "block-container" },
+      React.createElement(
+        "div",
+        { className: "gp-finder-no-results" },
+        React.createElement(
+          "p",
+          null,
+          "Sorry, no practices have been found. ",
+          React.createElement(
+            "a",
+            { href: "#search" },
+            "Try searching again."
+          )
+        ),
+        React.createElement(
+          "p",
+          null,
+          "You can search using:"
+        ),
+        React.createElement(
+          "ul",
+          null,
+          React.createElement(
+            "li",
+            null,
+            "practice name"
+          ),
+          React.createElement(
+            "li",
+            null,
+            "practice address"
+          ),
+          React.createElement(
+            "li",
+            null,
+            "postcode"
+          ),
+          React.createElement(
+            "li",
+            null,
+            "doctor’s name"
+          )
+        )
+      )
+    );
   }
 });

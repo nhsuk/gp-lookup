@@ -138,6 +138,7 @@ button:focus {
   .gp-finder-pagination {
     max-width: 75%; } }
 
+<<<<<<< HEAD
 .gp-finder-foot {
   margin-top: 22px;
   font-size: 16px; }
@@ -148,6 +149,18 @@ button:focus {
     margin-bottom: 4px; }
     @media (min-width: 769px) {
       .gp-finder-foot li {
+=======
+.gp-finder-no-results {
+  margin-top: 22px;
+  font-size: 16px; }
+  @media (min-width: 769px) {
+    .gp-finder-no-results {
+      max-width: 75%; } }
+  .gp-finder-no-results li {
+    margin-bottom: 4px; }
+    @media (min-width: 769px) {
+      .gp-finder-no-results li {
+>>>>>>> Minimal styling for no results
         margin-bottom: 8px; } }
 
 .practice-detail-section {
