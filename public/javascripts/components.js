@@ -12,28 +12,21 @@ var Application = React.createClass({
   },
 
   render: function render() {
-    var numberOfResults = null,
-        resultsList = null;
-
-    if (this.state.results !== null) {
-      numberOfResults = this.state.results.length;
-    }
-
-    if (numberOfResults === 0) {
-      resultsList = React.createElement(NoResults, null);
-    } else if (numberOfResults) {
-      resultsList = React.createElement(ResultsList, { practices: this.state.results,
-        loadMoreResults: this.loadMoreResults,
-        loadMoreHref: this.loadMoreHref() });
-    };
-
     return React.createElement(
       "div",
       null,
       React.createElement(SearchForm, { searchText: this.state.searchText,
         handleSearchTextChange: this.handleSearchTextChange }),
-      resultsList
+      this.resultsList()
     );
+  },
+
+  resultsList: function resultsList() {
+    if (this.state.results) {
+      return React.createElement(ResultsList, { practices: this.state.results,
+        loadMoreResults: this.loadMoreResults,
+        loadMoreHref: this.loadMoreHref() });
+    }
   },
 
   handleSearchTextChange: function handleSearchTextChange(newSearchText) {
@@ -45,10 +38,15 @@ var Application = React.createClass({
   },
 
   loadMoreHref: function loadMoreHref() {
-    var searchText = this.state.searchText.replace(" ", "+", "g"),
-        maxResults = this.state.maxResults + 20;
+    // TODO handle this in a less hacky way:
+    // it'll give a false positive when the total number of results is
+    // coincidentally the same as the max number of results.
+    if (this.state.maxResults === this.state.results.length) {
+      var searchText = this.state.searchText.replace(" ", "+", "g"),
+          maxResults = this.state.maxResults + 20;
 
-    return "?search=" + searchText + "&max=" + maxResults;
+      return "?search=" + searchText + "&max=" + maxResults;
+    }
   },
 
   updateResults: function updateResults(searchText, maxResults) {
@@ -116,22 +114,32 @@ var ResultsList = React.createClass({
   displayName: "ResultsList",
 
   render: function render() {
-    var practiceResults = this.props.practices.map(function (practice, index) {
-      return React.createElement(PracticeResult, { key: practice.code,
-        practice: practice });
-    });
-
     return React.createElement(
       "div",
       { className: "block-container" },
-      React.createElement(
+      this.results(),
+      this.footer()
+    );
+  },
+
+  results: function results() {
+    if (this.props.practices.length > 0) {
+      var results = this.props.practices.map(function (practice, index) {
+        return React.createElement(PracticeResult, { key: practice.code, practice: practice });
+      });
+
+      return React.createElement(
         "div",
         { className: "gp-finder-results", "aria-live": "polite" },
-        practiceResults
-      ),
-      React.createElement(ResultsFooter, { loadMoreResults: this.props.loadMoreResults,
-        loadMoreHref: this.props.loadMoreHref })
-    );
+        results
+      );
+    }
+  },
+
+  footer: function footer() {
+    return React.createElement(ResultsFooter, { numberOfResults: this.props.practices.length,
+      loadMoreResults: this.props.loadMoreResults,
+      loadMoreHref: this.props.loadMoreHref });
   }
 });
 
@@ -199,6 +207,21 @@ var ResultsFooter = React.createClass({
   displayName: "ResultsFooter",
 
   render: function render() {
+    if (this.props.numberOfResults === 0) {
+      return React.createElement(NoResults, null);
+    } else if (this.props.loadMoreHref) {
+      return React.createElement(EndOfPage, { loadMoreHref: this.props.loadMoreHref,
+        loadMoreResults: this.props.loadMoreResults });
+    } else {
+      return React.createElement(EndOfResults, null);
+    }
+  }
+});
+
+var EndOfPage = React.createClass({
+  displayName: "EndOfPage",
+
+  render: function render() {
     return React.createElement(
       "div",
       { className: "gp-finder-foot" },
@@ -262,54 +285,99 @@ var ResultsFooter = React.createClass({
   }
 });
 
+var EndOfResults = React.createClass({
+  displayName: "EndOfResults",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "gp-finder-foot" },
+      React.createElement(
+        "p",
+        null,
+        "You can search using:"
+      ),
+      React.createElement(
+        "ul",
+        null,
+        React.createElement(
+          "li",
+          null,
+          "practice name"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "practice address"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "postcode"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "doctor’s name"
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(
+          "a",
+          { href: "#search" },
+          "Search again"
+        )
+      )
+    );
+  }
+});
+
 var NoResults = React.createClass({
   displayName: "NoResults",
 
   render: function render() {
     return React.createElement(
       "div",
-      { className: "block-container" },
+      { className: "gp-finder-no-results" },
       React.createElement(
-        "div",
-        { className: "gp-finder-no-results" },
+        "p",
+        null,
+        "Sorry, no practices have been found. ",
         React.createElement(
-          "p",
+          "a",
+          { href: "#search" },
+          "Try searching again."
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        "You can search using:"
+      ),
+      React.createElement(
+        "ul",
+        null,
+        React.createElement(
+          "li",
           null,
-          "Sorry, no practices have been found. ",
-          React.createElement(
-            "a",
-            { href: "#search" },
-            "Try searching again."
-          )
+          "practice name"
         ),
         React.createElement(
-          "p",
+          "li",
           null,
-          "You can search using:"
+          "practice address"
         ),
         React.createElement(
-          "ul",
+          "li",
           null,
-          React.createElement(
-            "li",
-            null,
-            "practice name"
-          ),
-          React.createElement(
-            "li",
-            null,
-            "practice address"
-          ),
-          React.createElement(
-            "li",
-            null,
-            "postcode"
-          ),
-          React.createElement(
-            "li",
-            null,
-            "doctor’s name"
-          )
+          "postcode"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "doctor’s name"
         )
       )
     );

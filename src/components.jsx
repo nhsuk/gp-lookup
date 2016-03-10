@@ -10,31 +10,23 @@ var Application = React.createClass({
   },
 
   render: function() {
-    var numberOfResults = null,
-        resultsList = null;
-
-    if (this.state.results !== null) {
-      numberOfResults = this.state.results.length;
-    }
-
-    if (numberOfResults === 0) {
-      resultsList = (<NoResults />);
-    }
-    else if(numberOfResults) {
-      resultsList = (
-        <ResultsList practices={this.state.results}
-                     loadMoreResults={this.loadMoreResults}
-                     loadMoreHref={this.loadMoreHref()} />
-      );
-    };
-
     return (
       <div>
         <SearchForm searchText={this.state.searchText}
                     handleSearchTextChange={this.handleSearchTextChange} />
-        {resultsList}
+        {this.resultsList()}
       </div>
     );
+  },
+
+  resultsList: function() {
+    if (this.state.results) {
+      return (
+        <ResultsList practices={this.state.results}
+                     loadMoreResults={this.loadMoreResults}
+                     loadMoreHref={this.loadMoreHref()} />
+      );
+    }
   },
 
   handleSearchTextChange: function(newSearchText) {
@@ -46,10 +38,15 @@ var Application = React.createClass({
   },
 
   loadMoreHref: function() {
-    var searchText = this.state.searchText.replace(" ", "+", "g"),
-        maxResults = this.state.maxResults + 20;
+    // TODO handle this in a less hacky way:
+    // it'll give a false positive when the total number of results is
+    // coincidentally the same as the max number of results.
+    if (this.state.maxResults === this.state.results.length) {
+      var searchText = this.state.searchText.replace(" ", "+", "g"),
+          maxResults = this.state.maxResults + 20;
 
-    return "?search=" + searchText + "&max=" + maxResults;
+      return "?search=" + searchText + "&max=" + maxResults;
+    }
   },
 
   updateResults: function(searchText, maxResults) {
@@ -102,20 +99,33 @@ var SearchForm = React.createClass({
 
 var ResultsList = React.createClass({
   render: function() {
-    var practiceResults = this.props.practices.map(function(practice, index) {
-      return (<PracticeResult key={practice.code}
-                              practice={practice} />);
-    });
-
     return (
       <div className="block-container">
-        <div className="gp-finder-results" aria-live="polite">
-          {practiceResults}
-        </div>
-
-        <ResultsFooter loadMoreResults={this.props.loadMoreResults}
-                       loadMoreHref={this.props.loadMoreHref} />
+        {this.results()}
+        {this.footer()}
       </div>
+    );
+  },
+
+  results: function() {
+    if (this.props.practices.length > 0) {
+      var results = this.props.practices.map(function(practice, index) {
+        return <PracticeResult key={practice.code} practice={practice} />;
+      });
+
+      return (
+        <div className="gp-finder-results" aria-live="polite">
+          {results}
+        </div>
+      );
+    }
+  },
+
+  footer: function() {
+    return (
+      <ResultsFooter numberOfResults={this.props.practices.length}
+                     loadMoreResults={this.props.loadMoreResults}
+                     loadMoreHref={this.props.loadMoreHref} />
     );
   }
 });
@@ -178,6 +188,22 @@ var PracticeResult = React.createClass({
 
 var ResultsFooter = React.createClass({
   render: function() {
+    if (this.props.numberOfResults === 0) {
+      return <NoResults />;
+    }
+    else if (this.props.loadMoreHref) {
+      return <EndOfPage loadMoreHref={this.props.loadMoreHref}
+                        loadMoreResults={this.props.loadMoreResults} />;
+    }
+    else {
+      return <EndOfResults />;
+    }
+  }
+});
+
+
+var EndOfPage = React.createClass({
+  render: function() {
     return (
       <div className="gp-finder-foot">
         <p>
@@ -210,24 +236,44 @@ var ResultsFooter = React.createClass({
 });
 
 
+var EndOfResults = React.createClass({
+  render: function() {
+    return (
+      <div className="gp-finder-foot">
+        <p>
+          You can search using:
+        </p>
+        <ul>
+          <li>practice name</li>
+          <li>practice address</li>
+          <li>postcode</li>
+          <li>doctor’s name</li>
+        </ul>
+        <p>
+          <a href="#search">Search again</a>
+        </p>
+      </div>
+    );
+  }
+});
+
+
 var NoResults = React.createClass({
   render: function() {
     return (
-      <div className="block-container">
-        <div className="gp-finder-no-results">
-          <p>
-            Sorry, no practices have been found. <a href="#search">Try searching again.</a>
-          </p>
-          <p>
-            You can search using:
-          </p>
-          <ul>
-            <li>practice name</li>
-            <li>practice address</li>
-            <li>postcode</li>
-            <li>doctor’s name</li>
-          </ul>
-        </div>
+      <div className="gp-finder-no-results">
+        <p>
+          Sorry, no practices have been found. <a href="#search">Try searching again.</a>
+        </p>
+        <p>
+          You can search using:
+        </p>
+        <ul>
+          <li>practice name</li>
+          <li>practice address</li>
+          <li>postcode</li>
+          <li>doctor’s name</li>
+        </ul>
       </div>
     );
   }
