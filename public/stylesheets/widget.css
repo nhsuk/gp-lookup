@@ -88,18 +88,8 @@ dl dd {
   @media (min-width: 769px) {
     .gp-finder-results a.result {
       margin: 18px 0; } }
-.gp-finder-results a.result {
-  transition: background-color 0.2s; }
-  .gp-finder-results a.result:hover {
-    background-color: #fffde6; }
-@media (any-pointer: fine) {
-  .gp-finder-results a.result {
-    transition: opacity 0.2s; }
-  .gp-finder-results:hover a.result {
-    opacity: 0.2; }
-    .gp-finder-results:hover a.result:hover {
-      opacity: 1;
-      background-color: #ffffff; } }
+.gp-finder-results a.result:hover {
+  outline: 3px solid #FFED00; }
 .gp-finder-results h2 {
   font-weight: 400;
   color: #0072C6;
