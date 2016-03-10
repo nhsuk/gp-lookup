@@ -74,11 +74,13 @@ dl {
   input[type="text"] {
     float: left;
     box-sizing: border-box;
+    width: 80%;
     width: calc(100% - 54px);
     padding: 0 12px;
     font-family: inherit;
     font-size: 26px;
     line-height: 48px;
+    height: 54px;
     border: 3px solid $blue;
 
     @include media(large) {
@@ -90,12 +92,11 @@ dl {
     float: left;
     box-sizing: border-box;
     width: 54px;
-    padding: 0 12px;
+    height: 54px;
+    padding: 0;
     font-family: inherit;
-    font-size: 26px;
-    line-height: 54px;
-    text-indent: -999em;
     color: $white;
+    text-indent: -999em;
     background: url("/images/icon-search.svg") center no-repeat $blue;
     background-size: 65%;
     border: 0;

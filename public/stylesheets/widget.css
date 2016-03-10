@@ -46,11 +46,13 @@ dl dd {
   .gp-finder-search input[type="text"] {
     float: left;
     box-sizing: border-box;
+    width: 80%;
     width: calc(100% - 54px);
     padding: 0 12px;
     font-family: inherit;
     font-size: 26px;
     line-height: 48px;
+    height: 54px;
     border: 3px solid #0072C6; }
     @media (min-width: 769px) {
       .gp-finder-search input[type="text"] {
@@ -59,12 +61,11 @@ dl dd {
     float: left;
     box-sizing: border-box;
     width: 54px;
-    padding: 0 12px;
+    height: 54px;
+    padding: 0;
     font-family: inherit;
-    font-size: 26px;
-    line-height: 54px;
-    text-indent: -999em;
     color: #ffffff;
+    text-indent: -999em;
     background: url("/images/icon-search.svg") center no-repeat #0072C6;
     background-size: 65%;
     border: 0;
