@@ -134,8 +134,9 @@ var ResultsList = React.createClass({
 var PracticeResult = React.createClass({
   render: function() {
     var practitioners = this.props.practice.practitioners.map(function(practitioner, index) {
+          var key = this.props.practice.code + "-practitioner-" + index;
           return (
-            <p className="person">
+            <p className="person" key={key}>
               <img src="/images/person-placeholder.svg" width="45" height="45" alt="" />
               { " Dr. " }
               <span dangerouslySetInnerHTML={this.highlightText(practitioner.value, practitioner.matches)} />
