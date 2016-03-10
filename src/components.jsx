@@ -23,6 +23,7 @@ var Application = React.createClass({
     if (this.state.results) {
       return (
         <ResultsList practices={this.state.results}
+                     pageSize={20}
                      loadMoreResults={this.loadMoreResults}
                      loadMoreHref={this.loadMoreHref()} />
       );
@@ -45,7 +46,7 @@ var Application = React.createClass({
       var searchText = this.state.searchText.replace(" ", "+", "g"),
           maxResults = this.state.maxResults + 20;
 
-      return "?search=" + searchText + "&max=" + maxResults;
+      return "?search=" + searchText + "&max=" + maxResults + "#result-" + this.state.maxResults;
     }
   },
 
@@ -110,7 +111,7 @@ var ResultsList = React.createClass({
   results: function() {
     if (this.props.practices.length > 0) {
       var results = this.props.practices.map(function(practice, index) {
-        return <PracticeResult key={practice.code} practice={practice} />;
+        return <PracticeResult index={index} key={practice.code} practice={practice} />;
       });
 
       return (
@@ -141,7 +142,8 @@ var PracticeResult = React.createClass({
             </p>
           );
         }.bind(this)),
-        href = "/practice/" + this.props.practice.code;
+        href = "/practice/" + this.props.practice.code,
+        id = "result-" + this.props.index;
 
     if (this.props.practice.score.distance) {
       var distance = (
@@ -150,7 +152,7 @@ var PracticeResult = React.createClass({
     }
 
     return (
-      <a href={href} className="result">
+      <a href={href} className="result" id={id}>
         <h2 dangerouslySetInnerHTML={this.highlightText(this.props.practice.name.value, this.props.practice.name.matches)} />
         <p className="address" dangerouslySetInnerHTML={this.highlightText(this.props.practice.address.value, this.props.practice.address.matches)} />
         {distance}
