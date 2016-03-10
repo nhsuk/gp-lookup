@@ -132,25 +132,8 @@ dl {
   }
 
   a.result {
-    transition: background-color 0.2s;
     &:hover {
-      background-color: tint($yellow, 90%);
-    }
-  }
-
-  @media (any-pointer: fine) {
-    a.result {
-      transition: opacity 0.2s;
-    }
-
-    &:hover {
-      a.result {
-        opacity: 0.2;
-        &:hover {
-          opacity: 1;
-          background-color: $white;
-        }
-      }
+      outline: 3px solid $yellow;
     }
   }
 
