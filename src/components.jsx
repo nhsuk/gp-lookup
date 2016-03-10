@@ -186,7 +186,16 @@ var ResultsFooter = React.createClass({
     if (this.props.numberOfResults === 0) {
       return <NoResults />;
     }
+    else {
+      return <EndOfPage loadMoreHref={this.props.loadMoreHref}
+                        loadMoreResults={this.props.loadMoreResults} />;
+    }
+  }
+});
 
+
+var EndOfPage = React.createClass({
+  render: function() {
     return (
       <div className="gp-finder-foot">
         <p>
