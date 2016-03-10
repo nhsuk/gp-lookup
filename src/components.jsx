@@ -21,16 +21,11 @@ var Application = React.createClass({
 
   resultsList: function() {
     if (this.state.results) {
-      if (this.state.results.length === 0) {
-        return <NoResults />;
-      }
-      else {
-        return (
-          <ResultsList practices={this.state.results}
-                       loadMoreResults={this.loadMoreResults}
-                       loadMoreHref={this.loadMoreHref()} />
-        );
-      };
+      return (
+        <ResultsList practices={this.state.results}
+                     loadMoreResults={this.loadMoreResults}
+                     loadMoreHref={this.loadMoreHref()} />
+      );
     }
   },
 
@@ -99,6 +94,10 @@ var SearchForm = React.createClass({
 
 var ResultsList = React.createClass({
   render: function() {
+    if (this.props.practices.length === 0) {
+      return <NoResults />;
+    }
+
     var practiceResults = this.props.practices.map(function(practice, index) {
       return (<PracticeResult key={practice.code}
                               practice={practice} />);

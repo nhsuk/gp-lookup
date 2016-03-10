@@ -23,13 +23,9 @@ var Application = React.createClass({
 
   resultsList: function resultsList() {
     if (this.state.results) {
-      if (this.state.results.length === 0) {
-        return React.createElement(NoResults, null);
-      } else {
-        return React.createElement(ResultsList, { practices: this.state.results,
-          loadMoreResults: this.loadMoreResults,
-          loadMoreHref: this.loadMoreHref() });
-      };
+      return React.createElement(ResultsList, { practices: this.state.results,
+        loadMoreResults: this.loadMoreResults,
+        loadMoreHref: this.loadMoreHref() });
     }
   },
 
@@ -113,6 +109,10 @@ var ResultsList = React.createClass({
   displayName: "ResultsList",
 
   render: function render() {
+    if (this.props.practices.length === 0) {
+      return React.createElement(NoResults, null);
+    }
+
     var practiceResults = this.props.practices.map(function (practice, index) {
       return React.createElement(PracticeResult, { key: practice.code,
         practice: practice });
