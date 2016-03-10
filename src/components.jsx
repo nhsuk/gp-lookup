@@ -117,13 +117,11 @@ var ResultsList = React.createClass({
   },
 
   footer: function() {
-    if (this.props.practices.length === 0) {
-      return <NoResults />;
-    }
-    else {
-      <ResultsFooter loadMoreResults={this.props.loadMoreResults}
+    return (
+      <ResultsFooter numberOfResults={this.props.practices.length}
+                     loadMoreResults={this.props.loadMoreResults}
                      loadMoreHref={this.props.loadMoreHref} />
-    }
+    );
   }
 });
 
@@ -185,6 +183,10 @@ var PracticeResult = React.createClass({
 
 var ResultsFooter = React.createClass({
   render: function() {
+    if (this.props.numberOfResults === 0) {
+      return <NoResults />;
+    }
+
     return (
       <div className="gp-finder-foot">
         <p>
@@ -220,21 +222,19 @@ var ResultsFooter = React.createClass({
 var NoResults = React.createClass({
   render: function() {
     return (
-      <div className="block-container">
-        <div className="gp-finder-no-results">
-          <p>
-            Sorry, no practices have been found. <a href="#search">Try searching again.</a>
-          </p>
-          <p>
-            You can search using:
-          </p>
-          <ul>
-            <li>practice name</li>
-            <li>practice address</li>
-            <li>postcode</li>
-            <li>doctor’s name</li>
-          </ul>
-        </div>
+      <div className="gp-finder-no-results">
+        <p>
+          Sorry, no practices have been found. <a href="#search">Try searching again.</a>
+        </p>
+        <p>
+          You can search using:
+        </p>
+        <ul>
+          <li>practice name</li>
+          <li>practice address</li>
+          <li>postcode</li>
+          <li>doctor’s name</li>
+        </ul>
       </div>
     );
   }

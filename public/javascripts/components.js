@@ -132,12 +132,9 @@ var ResultsList = React.createClass({
   },
 
   footer: function footer() {
-    if (this.props.practices.length === 0) {
-      return React.createElement(NoResults, null);
-    } else {
-      React.createElement(ResultsFooter, { loadMoreResults: this.props.loadMoreResults,
-        loadMoreHref: this.props.loadMoreHref });
-    }
+    return React.createElement(ResultsFooter, { numberOfResults: this.props.practices.length,
+      loadMoreResults: this.props.loadMoreResults,
+      loadMoreHref: this.props.loadMoreHref });
   }
 });
 
@@ -205,6 +202,10 @@ var ResultsFooter = React.createClass({
   displayName: "ResultsFooter",
 
   render: function render() {
+    if (this.props.numberOfResults === 0) {
+      return React.createElement(NoResults, null);
+    }
+
     return React.createElement(
       "div",
       { className: "gp-finder-foot" },
@@ -274,48 +275,44 @@ var NoResults = React.createClass({
   render: function render() {
     return React.createElement(
       "div",
-      { className: "block-container" },
+      { className: "gp-finder-no-results" },
       React.createElement(
-        "div",
-        { className: "gp-finder-no-results" },
+        "p",
+        null,
+        "Sorry, no practices have been found. ",
         React.createElement(
-          "p",
+          "a",
+          { href: "#search" },
+          "Try searching again."
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        "You can search using:"
+      ),
+      React.createElement(
+        "ul",
+        null,
+        React.createElement(
+          "li",
           null,
-          "Sorry, no practices have been found. ",
-          React.createElement(
-            "a",
-            { href: "#search" },
-            "Try searching again."
-          )
+          "practice name"
         ),
         React.createElement(
-          "p",
+          "li",
           null,
-          "You can search using:"
+          "practice address"
         ),
         React.createElement(
-          "ul",
+          "li",
           null,
-          React.createElement(
-            "li",
-            null,
-            "practice name"
-          ),
-          React.createElement(
-            "li",
-            null,
-            "practice address"
-          ),
-          React.createElement(
-            "li",
-            null,
-            "postcode"
-          ),
-          React.createElement(
-            "li",
-            null,
-            "doctor’s name"
-          )
+          "postcode"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "doctor’s name"
         )
       )
     );
