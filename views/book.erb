@@ -61,23 +61,22 @@
 
     <div class="practice-detail-section">
       <h2><%= practice.name %></h2>
-      <p>
+      <p class="practice-address">
         <%= practice.location[:address].gsub(', ', ',<br>') %>,<br>
         <%= practice.location[:postcode] %>
       </p>
+      <dl class="practice-contact">
+        <dt>Telephone:</dt>
+        <dd>
+          <a href="tel:<%= practice.contact_telephone_number %>">
+            <%= practice.contact_telephone_number %>
+          </a>
+        </dd>
+      </dl>
     </div>
 
   </div>
 
-  <div class="call-to-action-section">
-    <div class="block-container">
-      <p>
-        <a href="tel:<%= practice.contact_telephone_number %>">
-          <%= practice.contact_telephone_number %>
-        </a>
-      </p>
-    </div>
-  </div>
 </main>
 
 
