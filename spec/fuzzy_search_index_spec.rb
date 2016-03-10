@@ -4,7 +4,6 @@ RSpec.describe(FuzzySearchIndex, "#find") do
   subject(:index) {
     FuzzySearchIndex.new(
       practices: practices,
-      max_results: 10,
     )
   }
 
