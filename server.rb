@@ -56,6 +56,7 @@ get '/' do
   erb :index, locals: {
     search_term: search_term,
     practices: practices,
+    max_results: max_results,
   }
 end
 

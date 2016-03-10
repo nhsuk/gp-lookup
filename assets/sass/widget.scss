@@ -207,6 +207,21 @@ dl {
     background-color: tint($blue, 90%);
   }
 
+  a.start-of-page:not(:first-child) {
+    position: relative;
+    margin-top: 30px;
+  }
+
+  a.start-of-page:not(:first-child):before {
+    content: "";
+    display: block;
+    background: #ddd;
+    position: absolute;
+    top: -17px;
+    width: 100%;
+    height: 2px;
+    left: 0;
+  }
 }
 
 .gp-finder-pagination {

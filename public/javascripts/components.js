@@ -7,7 +7,7 @@ var Application = React.createClass({
     return {
       searchText: this.props.initialSearchText,
       results: this.props.initialResults,
-      maxResults: 20
+      maxResults: this.props.initialMaxResults
     };
   },
 
@@ -24,6 +24,7 @@ var Application = React.createClass({
   resultsList: function resultsList() {
     if (this.state.results) {
       return React.createElement(ResultsList, { practices: this.state.results,
+        pageSize: 20,
         loadMoreResults: this.loadMoreResults,
         loadMoreHref: this.loadMoreHref() });
     }
@@ -45,7 +46,7 @@ var Application = React.createClass({
       var searchText = this.state.searchText.replace(" ", "+", "g"),
           maxResults = this.state.maxResults + 20;
 
-      return "?search=" + searchText + "&max=" + maxResults;
+      return "?search=" + searchText + "&max=" + maxResults + "#result-" + this.state.maxResults;
     }
   },
 
@@ -125,7 +126,7 @@ var ResultsList = React.createClass({
   results: function results() {
     if (this.props.practices.length > 0) {
       var results = this.props.practices.map(function (practice, index) {
-        return React.createElement(PracticeResult, { key: practice.code, practice: practice });
+        return React.createElement(PracticeResult, { index: index, key: practice.code, practice: practice });
       });
 
       return React.createElement(
@@ -156,7 +157,9 @@ var PracticeResult = React.createClass({
         React.createElement("span", { dangerouslySetInnerHTML: this.highlightText(practitioner.value, practitioner.matches) })
       );
     }).bind(this)),
-        href = "/practice/" + this.props.practice.code;
+        href = "/practice/" + this.props.practice.code,
+        id = "result-" + this.props.index,
+        className = this.props.index % 20 === 0 ? "result start-of-page" : "result";
 
     if (this.props.practice.score.distance) {
       var distance = React.createElement(
@@ -169,7 +172,7 @@ var PracticeResult = React.createClass({
 
     return React.createElement(
       "a",
-      { href: href, className: "result" },
+      { href: href, className: className, id: id },
       React.createElement("h2", { dangerouslySetInnerHTML: this.highlightText(this.props.practice.name.value, this.props.practice.name.matches) }),
       React.createElement("p", { className: "address", dangerouslySetInnerHTML: this.highlightText(this.props.practice.address.value, this.props.practice.address.matches) }),
       distance,

@@ -139,6 +139,18 @@ dl dd {
   padding-right: 2px;
   font-weight: 400;
   background-color: #e6f1f9; }
+.gp-finder-results a.start-of-page:not(:first-child) {
+  position: relative;
+  margin-top: 30px; }
+.gp-finder-results a.start-of-page:not(:first-child):before {
+  content: "";
+  display: block;
+  background: #ddd;
+  position: absolute;
+  top: -17px;
+  width: 100%;
+  height: 2px;
+  left: 0; }
 
 @media (min-width: 769px) {
   .gp-finder-pagination {
