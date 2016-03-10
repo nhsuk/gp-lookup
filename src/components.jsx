@@ -38,10 +38,15 @@ var Application = React.createClass({
   },
 
   loadMoreHref: function() {
-    var searchText = this.state.searchText.replace(" ", "+", "g"),
-        maxResults = this.state.maxResults + 20;
+    // TODO handle this in a less hacky way:
+    // it'll give a false positive when the total number of results is
+    // coincidentally the same as the max number of results.
+    if (this.state.maxResults === this.state.results.length) {
+      var searchText = this.state.searchText.replace(" ", "+", "g"),
+          maxResults = this.state.maxResults + 20;
 
-    return "?search=" + searchText + "&max=" + maxResults;
+      return "?search=" + searchText + "&max=" + maxResults;
+    }
   },
 
   updateResults: function(searchText, maxResults) {
@@ -186,9 +191,12 @@ var ResultsFooter = React.createClass({
     if (this.props.numberOfResults === 0) {
       return <NoResults />;
     }
-    else {
+    else if (this.props.loadMoreHref) {
       return <EndOfPage loadMoreHref={this.props.loadMoreHref}
                         loadMoreResults={this.props.loadMoreResults} />;
+    }
+    else {
+      return <EndOfResults />;
     }
   }
 });
@@ -224,6 +232,28 @@ var EndOfPage = React.createClass({
     this.props.loadMoreResults();
 
     return false;
+  }
+});
+
+
+var EndOfResults = React.createClass({
+  render: function() {
+    return (
+      <div className="gp-finder-foot">
+        <p>
+          You can search using:
+        </p>
+        <ul>
+          <li>practice name</li>
+          <li>practice address</li>
+          <li>postcode</li>
+          <li>doctor’s name</li>
+        </ul>
+        <p>
+          <a href="#search">Search again</a>
+        </p>
+      </div>
+    );
   }
 });
 

@@ -38,10 +38,15 @@ var Application = React.createClass({
   },
 
   loadMoreHref: function loadMoreHref() {
-    var searchText = this.state.searchText.replace(" ", "+", "g"),
-        maxResults = this.state.maxResults + 20;
+    // TODO handle this in a less hacky way:
+    // it'll give a false positive when the total number of results is
+    // coincidentally the same as the max number of results.
+    if (this.state.maxResults === this.state.results.length) {
+      var searchText = this.state.searchText.replace(" ", "+", "g"),
+          maxResults = this.state.maxResults + 20;
 
-    return "?search=" + searchText + "&max=" + maxResults;
+      return "?search=" + searchText + "&max=" + maxResults;
+    }
   },
 
   updateResults: function updateResults(searchText, maxResults) {
@@ -204,9 +209,11 @@ var ResultsFooter = React.createClass({
   render: function render() {
     if (this.props.numberOfResults === 0) {
       return React.createElement(NoResults, null);
-    } else {
+    } else if (this.props.loadMoreHref) {
       return React.createElement(EndOfPage, { loadMoreHref: this.props.loadMoreHref,
         loadMoreResults: this.props.loadMoreResults });
+    } else {
+      return React.createElement(EndOfResults, null);
     }
   }
 });
@@ -275,6 +282,55 @@ var EndOfPage = React.createClass({
     this.props.loadMoreResults();
 
     return false;
+  }
+});
+
+var EndOfResults = React.createClass({
+  displayName: "EndOfResults",
+
+  render: function render() {
+    return React.createElement(
+      "div",
+      { className: "gp-finder-foot" },
+      React.createElement(
+        "p",
+        null,
+        "You can search using:"
+      ),
+      React.createElement(
+        "ul",
+        null,
+        React.createElement(
+          "li",
+          null,
+          "practice name"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "practice address"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "postcode"
+        ),
+        React.createElement(
+          "li",
+          null,
+          "doctor’s name"
+        )
+      ),
+      React.createElement(
+        "p",
+        null,
+        React.createElement(
+          "a",
+          { href: "#search" },
+          "Search again"
+        )
+      )
+    );
   }
 });
 
