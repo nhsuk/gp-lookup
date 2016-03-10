@@ -94,25 +94,36 @@ var SearchForm = React.createClass({
 
 var ResultsList = React.createClass({
   render: function() {
+    return (
+      <div className="block-container">
+        {this.results()}
+        {this.footer()}
+      </div>
+    );
+  },
+
+  results: function() {
+    if (this.props.practices.length > 0) {
+      var results = this.props.practices.map(function(practice, index) {
+        return <PracticeResult key={practice.code} practice={practice} />;
+      });
+
+      return (
+        <div className="gp-finder-results" aria-live="polite">
+          {results}
+        </div>
+      );
+    }
+  },
+
+  footer: function() {
     if (this.props.practices.length === 0) {
       return <NoResults />;
     }
-
-    var practiceResults = this.props.practices.map(function(practice, index) {
-      return (<PracticeResult key={practice.code}
-                              practice={practice} />);
-    });
-
-    return (
-      <div className="block-container">
-        <div className="gp-finder-results" aria-live="polite">
-          {practiceResults}
-        </div>
-
-        <ResultsFooter loadMoreResults={this.props.loadMoreResults}
-                       loadMoreHref={this.props.loadMoreHref} />
-      </div>
-    );
+    else {
+      <ResultsFooter loadMoreResults={this.props.loadMoreResults}
+                     loadMoreHref={this.props.loadMoreHref} />
+    }
   }
 });
 

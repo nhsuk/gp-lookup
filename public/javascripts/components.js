@@ -109,26 +109,35 @@ var ResultsList = React.createClass({
   displayName: "ResultsList",
 
   render: function render() {
-    if (this.props.practices.length === 0) {
-      return React.createElement(NoResults, null);
-    }
-
-    var practiceResults = this.props.practices.map(function (practice, index) {
-      return React.createElement(PracticeResult, { key: practice.code,
-        practice: practice });
-    });
-
     return React.createElement(
       "div",
       { className: "block-container" },
-      React.createElement(
+      this.results(),
+      this.footer()
+    );
+  },
+
+  results: function results() {
+    if (this.props.practices.length > 0) {
+      var results = this.props.practices.map(function (practice, index) {
+        return React.createElement(PracticeResult, { key: practice.code, practice: practice });
+      });
+
+      return React.createElement(
         "div",
         { className: "gp-finder-results", "aria-live": "polite" },
-        practiceResults
-      ),
+        results
+      );
+    }
+  },
+
+  footer: function footer() {
+    if (this.props.practices.length === 0) {
+      return React.createElement(NoResults, null);
+    } else {
       React.createElement(ResultsFooter, { loadMoreResults: this.props.loadMoreResults,
-        loadMoreHref: this.props.loadMoreHref })
-    );
+        loadMoreHref: this.props.loadMoreHref });
+    }
   }
 });
 
