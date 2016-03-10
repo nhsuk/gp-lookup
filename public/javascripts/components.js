@@ -158,7 +158,8 @@ var PracticeResult = React.createClass({
       );
     }).bind(this)),
         href = "/practice/" + this.props.practice.code,
-        id = "result-" + this.props.index;
+        id = "result-" + this.props.index,
+        className = this.props.index % 20 === 0 ? "result start-of-page" : "result";
 
     if (this.props.practice.score.distance) {
       var distance = React.createElement(
@@ -171,7 +172,7 @@ var PracticeResult = React.createClass({
 
     return React.createElement(
       "a",
-      { href: href, className: "result", id: id },
+      { href: href, className: className, id: id },
       React.createElement("h2", { dangerouslySetInnerHTML: this.highlightText(this.props.practice.name.value, this.props.practice.name.matches) }),
       React.createElement("p", { className: "address", dangerouslySetInnerHTML: this.highlightText(this.props.practice.address.value, this.props.practice.address.matches) }),
       distance,
