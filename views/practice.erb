@@ -43,7 +43,7 @@
 
 <div class="service-banner">
   <div class="block-container">
-    <h1>Book a type 2 diabetes blood test</h1>
+    <h1>Practice details</h1>
   </div>
 </div>
 
@@ -61,47 +61,26 @@
 
     <div class="practice-detail-section">
       <h2><%= practice.name %></h2>
-      <p><%= practice.address %></p>
+      <p class="practice-address">
+        <%= practice.location[:address].gsub(', ', ',<br>') %>,<br>
+        <%= practice.location[:postcode] %>
+      </p>
+      <dl class="practice-contact">
+        <dt>Telephone:</dt>
+        <dd>
+          <a href="tel:<%= practice.contact_telephone_number %>">
+            <%= practice.contact_telephone_number %>
+          </a>
+        </dd>
+      </dl>
     </div>
 
-    <div class="instruction-section measure">
-      <p>
-        Type 2 diabetes blood tests are done on site at <%= practice.name %>.
-      </p>
-      <p>
-        You need to call and make an appointment. Make sure you:
-      </p>
-      <ul>
-        <li>Tell the practice you’re booking a type 2 diabetes blood test.</li>
-        <li>Don’t do this other thing.</li>
-      </ul>
-    </div>
+    <p>
+      <a href="/">Search again</a>
+    </p>
 
   </div>
 
-  <div class="call-to-action-section">
-    <div class="block-container">
-      <h3>To book your blood test call:</h3>
-      <p>
-        <a href="tel:<%= practice.contact_telephone_number %>">
-          <%= practice.contact_telephone_number %>
-        </a>
-      </p>
-      <p class="smallprint">
-        Calls charged at local rates
-      </p>
-    </div>
-  </div>
-
-  <div class="block-container">
-
-    <div class="instruction-section measure">
-      <ul>
-        <li class="smallprint">Smaller reminders etc.</li>
-      </ul>
-    </div>
-
-  </div>
 </main>
 
 

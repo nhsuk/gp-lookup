@@ -156,7 +156,7 @@ var PracticeResult = React.createClass({
         React.createElement("span", { dangerouslySetInnerHTML: this.highlightText(practitioner.value, practitioner.matches) })
       );
     }).bind(this)),
-        href = "/book/" + this.props.practice.code;
+        href = "/practice/" + this.props.practice.code;
 
     if (this.props.practice.score.distance) {
       var distance = React.createElement(

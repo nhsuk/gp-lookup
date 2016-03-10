@@ -1,6 +1,6 @@
-.clearfix {
+.clearfix, dl {
   zoom: 1; }
-  .clearfix:after {
+  .clearfix:after, dl:after {
     content: "";
     display: block;
     clear: both; }
@@ -13,6 +13,12 @@ button:focus {
   position: absolute;
   top: -999em;
   left: -999em; }
+
+dl dt {
+  float: left;
+  padding-right: 36px; }
+dl dd {
+  margin-bottom: 8px; }
 
 .service-banner {
   padding: 18px 0;
@@ -63,7 +69,7 @@ button:focus {
     background-size: 65%;
     border: 0;
     cursor: pointer; }
-  .gp-finder-search .clearfix {
+  .gp-finder-search .clearfix, .gp-finder-search dl {
     padding: 18px 0 0 0; }
 
 @media (min-width: 769px) {
@@ -138,29 +144,20 @@ button:focus {
   .gp-finder-pagination {
     max-width: 75%; } }
 
-<<<<<<< HEAD
-.gp-finder-foot {
-  margin-top: 22px;
-  font-size: 16px; }
-  @media (min-width: 769px) {
-    .gp-finder-foot {
-      max-width: 75%; } }
-  .gp-finder-foot li {
-    margin-bottom: 4px; }
-    @media (min-width: 769px) {
-      .gp-finder-foot li {
-=======
+.gp-finder-foot,
 .gp-finder-no-results {
   margin-top: 22px;
   font-size: 16px; }
   @media (min-width: 769px) {
+    .gp-finder-foot,
     .gp-finder-no-results {
       max-width: 75%; } }
+  .gp-finder-foot li,
   .gp-finder-no-results li {
     margin-bottom: 4px; }
     @media (min-width: 769px) {
+      .gp-finder-foot li,
       .gp-finder-no-results li {
->>>>>>> Minimal styling for no results
         margin-bottom: 8px; } }
 
 .practice-detail-section {
@@ -168,27 +165,21 @@ button:focus {
   .practice-detail-section h2 {
     font-weight: 400;
     margin: 0; }
-  .practice-detail-section p {
-    margin: 6px 0;
-    font-size: 16px; }
+  .practice-detail-section .practice-address {
+    margin: 6px 0; }
     @media (min-width: 769px) {
-      .practice-detail-section p {
+      .practice-detail-section .practice-address {
         margin: 12px 0;
         font-size: 18px; } }
-
-.call-to-action-section {
-  margin: 36px 0;
-  padding: 18px 0 1px 0;
-  background-color: rgba(0, 114, 198, 0.1); }
-  .call-to-action-section h3 {
-    margin-top: 0; }
-  .call-to-action-section a {
-    font-size: 92px;
-    line-height: 0.8;
-    font-weight: 700;
-    letter-spacing: -2px;
-    text-decoration: none;
-    color: #0072C6; }
+  .practice-detail-section .practice-contact {
+    margin: 12px 0; }
+    @media (min-width: 769px) {
+      .practice-detail-section .practice-contact {
+        margin: 18px 0; } }
+  .practice-detail-section a[href*="tel:"] {
+    cursor: default;
+    color: inherit;
+    text-decoration: none; }
 
 .smallprint {
   font-size: 15px;
