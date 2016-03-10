@@ -7,7 +7,7 @@ var Application = React.createClass({
     return {
       searchText: this.props.initialSearchText,
       results: this.props.initialResults,
-      maxResults: 20
+      maxResults: this.props.initialMaxResults
     };
   },
 
