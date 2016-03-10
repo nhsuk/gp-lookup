@@ -141,7 +141,7 @@ var PracticeResult = React.createClass({
             </p>
           );
         }.bind(this)),
-        href = "/book/" + this.props.practice.code;
+        href = "/practice/" + this.props.practice.code;
 
     if (this.props.practice.score.distance) {
       var distance = (

@@ -73,10 +73,10 @@ get "/practices" do
   JSON.pretty_generate(practices)
 end
 
-get "/book/:organisation_code" do
+get "/practice/:organisation_code" do
   practice = find_practice(params.fetch("organisation_code"))
 
-  erb :book, locals: { practice: practice }
+  erb :practice, locals: { practice: practice }
 end
 
 helpers do
