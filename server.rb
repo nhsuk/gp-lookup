@@ -1,5 +1,6 @@
 require "json"
 require "sinatra"
+require 'sinatra/cross_origin'
 
 require "./lib/practice_search_index"
 require "./lib/practice_data_transformer"
@@ -61,6 +62,11 @@ get '/' do
 end
 
 get "/practices" do
+  origins = ENV['ALLOWED_ORIGINS'].split(',')
+  origins.each do |origin|
+    cross_origin :allow_origin => origin, :allow_methods => [:get]
+  end
+
   search_term = params.fetch("search", "")
   max_results = Integer(params.fetch("max")) rescue DEFAULT_MAX_RESULTS
 
