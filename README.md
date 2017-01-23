@@ -11,7 +11,7 @@ Getting started:
 
 Starting up the server:
 
-    bundle exec rackup
+    ALLOWED_ORIGINS=http://localhost:3000 bundle exec rackup
 
 ## Usage
 
