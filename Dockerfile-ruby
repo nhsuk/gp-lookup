@@ -1,0 +1,20 @@
+FROM ruby:2.3.4-alpine
+
+WORKDIR /app
+
+COPY Gemfile* /app/
+
+RUN apt-get clean && apt-get update
+RUN apt-get install locales
+RUN locale-gen en_US.UTF-8
+RUN dpkg-reconfigure locales
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+RUN apt-get install -y nodejs
+RUN bundle install
+
+COPY . /app/
+
+EXPOSE 9292:9292
+CMD ["bundle", "exec", "rackup"]
