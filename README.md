@@ -16,7 +16,7 @@ docker build -t <tag_name> .
 Starting up the server:
 
 ```bash
-docker run -t -p 9292:9292 gp-lookup
+docker run -t -p 9292:9292 <tag_name>
 ```
 
 After run the server, you can go http://localhost:9292 on browser.
