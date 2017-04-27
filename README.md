@@ -2,7 +2,26 @@
 
 A small experiment in building a GP lookup that's simple to use.
 
-## Development
+## Setup
+
+### Docker (option 1)
+
+Make sure you have Docker and compose installed for your operating system
+then run:
+
+```bash
+docker build -t <tag_name> .
+```
+
+Starting up the server:
+
+```bash
+docker run -t -p 9292:9292 <tag_name>
+```
+
+After run the server, you can go http://localhost:9292 on browser.
+
+### Local Environment (option 2)
 
 Getting started:
 
