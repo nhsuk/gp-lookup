@@ -6,6 +6,7 @@ WORKDIR /app
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+ENV ALLOWED_ORIGINS "https://localhost:3334"
 
 RUN apt-get update && \
     apt-get install -y build-essential make curl locales nodejs && \
@@ -19,7 +20,8 @@ RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 COPY Gemfile* /app/
 RUN /bin/bash -l -c "bundle install"
 
-COPY . /app/
+ADD . /app/
 
 EXPOSE 9292:9292
+EXPOSE 9393:9393
 CMD /bin/bash -l -c "bundle exec rackup -o 0.0.0.0 -p 9292"
