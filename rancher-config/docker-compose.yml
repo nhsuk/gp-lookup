@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+
+  gp-lookup:
+    image: nhsuk/gp-lookup:$DOCKER_IMAGE_TAG
+    labels:
+      io.rancher.container.pull_image: always
+      traefik.enable: stack
+      traefik.domain: $TRAEFIK_DOMAIN
+      traefik.port: 9292
+      map-public-http: 9292
