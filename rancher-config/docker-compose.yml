@@ -10,3 +10,13 @@ services:
       traefik.domain: $TRAEFIK_DOMAIN
       traefik.port: 9292
       map-public-http: 9292
+    logging:
+      driver: splunk
+      options:
+        splunk-url: ${SPLUNK_HEC_URL}
+        splunk-token: ${SPLUNK_HEC_TOKEN}
+        splunk-insecureskipverify: "true"
+        splunk-sourcetype: docker
+        splunk-source: gp-lookup
+        splunk-verify-connection: "false"
+
