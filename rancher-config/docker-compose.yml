@@ -19,5 +19,5 @@ services:
         splunk-sourcetype: docker
         splunk-source: gp-lookup
         splunk-verify-connection: "false"
-        tag: '{{.ImageName}} {{.Name}} {{.FullID}}'
+        tag: "{{`{{.ImageName}} {{.Name}} {{.FullID}}`}}"
         splunk-format: json
