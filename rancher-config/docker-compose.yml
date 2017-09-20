@@ -5,8 +5,8 @@ services:
   gp-lookup:
     image: nhsuk/gp-lookup:$DOCKER_IMAGE_TAG
     labels:
-      io.rancher.container.pull_image: always
-      traefik.enable: stack
-      traefik.domain: $TRAEFIK_DOMAIN
+      traefik.enable: true
+      traefik.frontend.rule: $TRAEFIK_RULE
       traefik.port: 9292
       map-public-http: 9292
+      io.rancher.container.pull_image: always
